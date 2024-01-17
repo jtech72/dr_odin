@@ -1,0 +1,21 @@
+version: "2"
+services:
+  odin_server:
+    image: odin_server
+    build: ../../server
+    ports:
+      - 7010:7010
+    container_name: odin_server
+
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - PORT=7010
+      - MONGO_URI=mongodb+srv://oasix:oasix123@cluster0.tqgrfix.mongodb.net/odin
+      - SECRET_ACCESS_TOKEN=$2a$08$hVQ5qjUJSzg6o.k31s8jA.FLHl4FHcEm1jZ6OBMhQu8pUB0UODFkC
+  odin_client:
+    image: odin_client
+    build: ../../client
+    container_name: odin_client
+    ports:
+        - 7011:7011
