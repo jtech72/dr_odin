@@ -8,15 +8,17 @@ exports.GetAllMonths = async(req, res) => {
     try {
         const response = await current_status();
         let months = [];
-        const resp = await monthModel.find({}).sort({_id:1});
-        for(var i = 0; i < 12; i++){
-            _id = resp[i]._id;
-            let month = resp[i].month.slice(0,3);
-            let status = resp[i].status;
-            let date = resp[i].date;
-            months.push({_id,month,status,date});
-        }
-        res.status(200).json({ status: 200, response: months });
+        const resp = await monthModel.find();
+        // for(var i = 0; i < 12; i++){
+        //     _id = resp[i]._id;
+        //     let month = resp[i].month.slice(0,3);
+        //     let status = resp[i].status;
+        //     let date = resp[i].date;
+        //     months.push({_id,month,status,date});
+        // }
+        console.log(resp,"resp")
+
+        res.status(200).json({ status: 200, response: resp });
     } catch (err) {
         res.status(400).json({ status: 400, response: err.message });
     }
@@ -79,7 +81,6 @@ const current_status = async() => {
         return update;
 
     } catch (err) {
-        console.log(err.stack)
         res.status(400).json({ status: 400, response: "Not Update" });
     }
 };

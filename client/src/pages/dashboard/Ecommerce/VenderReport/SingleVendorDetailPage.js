@@ -10,7 +10,6 @@ function SingleVendorDetailPage() {
     const[data,setData] = useState([])
     const dispatch = useDispatch();
     const {id } = params
-    console.log(id,"nnnnnnn")
     useEffect(() => {
         dispatch(getVendorDetailAction(id)) 
     }, [])

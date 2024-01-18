@@ -66,7 +66,6 @@ const PerformanceChart = (): React$Element<any> => {
         //     colors: ['#F44336', '#E91E63', '#9C27B0']
         //   },
         // function({ value, seriesIndex, w ,l}) {
-        //     console.log(value,apexBarChartData[1]?.data[cureentAmountColour],value > apexBarChartData[1]?.data[indexColour])
         //     if (value > apexBarChartData[1]?.data[cureentAmountColour]) {
         //         cureentAmountColour=cureentAmountColour+1
         //       return '#39afd1'
@@ -79,7 +78,6 @@ const PerformanceChart = (): React$Element<any> => {
         //   }
 
         colors:[ "#727cf5",function({ value, seriesIndex, w ,l}) {
-            // console.log(value,apexBarChartData[0]?.data[indexColour],value < apexBarChartData[0]?.data[indexColour])
             if (value < apexBarChartData[0]?.data[indexColour]) {
                 indexColour=indexColour+1
               return '#39afd1'
@@ -123,7 +121,6 @@ const PerformanceChart = (): React$Element<any> => {
         return new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(x)
     }
     useEffect(()=>{
-        console.log(store,"suguydg")
         setGraphData(store?.AnnualSaleGraphReducer?.annualsalegraph?.response)
         // setProjection(store?.AnnualSaleGraphReducer?.annualsalegraph?.projectionData)
     },[store])

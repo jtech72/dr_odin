@@ -16,7 +16,6 @@ function Central() {
         return new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(x)
     }
     const handleEpandRow = (event, userId) => {
-        console.log("vishl")
         let res = {
             ...centraldata,
             response: centraldata?.response?.map((ele) =>
@@ -25,7 +24,6 @@ function Central() {
         };
         setCentralData(res);
         dispatch(getBdeCenterAction(userId));
-        console.log(res,"dfr")
     };
     useEffect (()=>{
         if(loaderHandel?.centralzonereport?.status==200){

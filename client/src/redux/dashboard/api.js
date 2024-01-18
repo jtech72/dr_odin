@@ -5,7 +5,6 @@ const api = new APICore()
 
 function getTotalMonthSaleApi(data):any{
     
-    console.log(data,"dhjdg")
     return api.get(`${URL.GET_TOTALMONTH_SALE}?currentMonth=${data?.payload.currentMonth}&startDate=${data?.payload?.startDate}&endDate=${data?.payload?.endDate}&state=${data?.payload?.state}&city=${data?.payload?.city}`)
 }
 
@@ -37,7 +36,6 @@ function getOverAllGraphApi(params:any):any{
     return api.get(URL.OVERALL_API)
 }
 function getSaleExecutiveReportApi(data):any{
-    console.log(data,"imcallinng")
     return api.get(`${URL.GET_SALE_EXECUTIVE_REPORT}?currentMonth=${data?.payload?.currentMonth}&startDate=${data?.payload?.startDate}&endDate=${data?.payload?.endDate}&state=${data?.payload?.state}&city=${data?.payload?.city}`)
 }
 function getRevenueByLocationApi(data):any{
@@ -59,11 +57,9 @@ function getCentalZoneReportApi(params:any):any{
     return api.get(URL.GET_CENTRAL_ZONE_REPORT)
 }
 function BdeListApi(data):any{
-    console.log(data,"dwhfjegd");
     return api.get(URL.GET_BDE_LIST+data.payload)
 }
 function getProductDetailReportApi(data):any{
-    console.log(data,"riiiiiiiiiiii")
     return api.get(`${URL.GET_PRODUCT_DETAIL_REPORT}${data?.payload}`)
 }
 function getVendorDetailReportApi(data):any{

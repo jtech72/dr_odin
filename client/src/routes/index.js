@@ -34,9 +34,9 @@ const ForgetPassword2 = React.lazy(() => import('../pages/account2/ForgetPasswor
 const LockScreen2 = React.lazy(() => import('../pages/account2/LockScreen2'));
 
 // dashboard
-const AnalyticsDashboard = React.lazy(() => import('../pages/dashboard/Analytics'));
+// const AnalyticsDashboard = React.lazy(() => import('../pages/dashboard/Analytics'));
 const EcommerceDashboard = React.lazy(() => import('../pages/dashboard/Ecommerce'));
-const ProjectDashboard = React.lazy(() => import('../pages/dashboard/Project'));
+// const ProjectDashboard = React.lazy(() => import('../pages/dashboard/Project'));
 const EWalletDashboard = React.lazy(() => import('../pages/dashboard/E-Wallet'));
 
 // uploads 

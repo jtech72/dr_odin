@@ -37,7 +37,6 @@ function Update({modal,closeModal,data}){
 
 
     useEffect(()=>{
-      console.log(data)
        setValue({...value,state:data?.state,zone:data?.zoneId})
         setUpdateModalModal(modal)
     },[modal])

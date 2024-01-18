@@ -16,7 +16,6 @@ function South() {
         return new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(x)
     }
     const handleEpandRow = (event, userId) => {
-        console.log("vishl")
         let res = {
             ...southdata,
             response: southdata?.response?.map((ele) =>
@@ -25,14 +24,12 @@ function South() {
         };
         setSouthData(res);
         dispatch(getBdeSouthAction(userId));
-        console.log(res,"dfr")
     };
     useEffect (()=>{
         if(loaderHandel?.southzonereport?.status==200){
             setSouthData(store?.SouthZoneReportReducer?.southzonereport)
         }
     },[loaderHandel?.southzonereport?.status])
-    console.log(southdata,"south")
   return (
    <>
     

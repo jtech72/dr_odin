@@ -8,7 +8,6 @@ import StatisticsWidget from '../../../components/StatisticsWidget';
 
 const Statistics = (): React$Element<React$FragmentType> => {
     const store = useSelector((state)=>state)
-    console.log(store)
     const INR_Format = (x)=>{
         return new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(x)
     }

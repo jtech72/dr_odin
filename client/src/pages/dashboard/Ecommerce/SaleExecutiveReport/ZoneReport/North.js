@@ -21,7 +21,6 @@ function North() {
     useEffect(() => {
         setNorthData(store?.NorthZoneReportReducer?.northzonereport);
     }, []);
-    console.log(northdata, 'sdde');
     const handleEpandRow = (event, userId) => {
         dispatch(getBdeAction(userId));
         let res = {

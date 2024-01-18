@@ -16,7 +16,6 @@ export default function East() {
         return new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(x)
     }
     const handleEpandRow = (event, userId) => {
-        console.log("vishl")
         let res = {
             ...eastdata,
             response: eastdata?.response?.map((ele) =>
@@ -25,7 +24,6 @@ export default function East() {
         };
         setEastData(res);
         dispatch(getBdeEASTAction(userId));
-        console.log(res,"dfr")
     };
     useEffect (()=>{
         if(loaderHandel?.eastzonereport?.status==200)

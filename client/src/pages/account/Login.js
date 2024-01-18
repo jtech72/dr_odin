@@ -14,6 +14,7 @@ import { resetAuth, loginUser } from '../../redux/actions';
 import { VerticalForm, FormInput } from '../../components/';
 
 import AccountLayout from './AccountLayout';
+import { useNavigate } from 'react-router-dom';
 
 /* bottom link of account pages */
 const BottomLink = () => {
@@ -60,11 +61,13 @@ const Login = (): React$Element<any> => {
             password: yup.string().required(t('Please enter Password')),
         })
     );
+   const navigate = useNavigate();
 
     /*       
     handle form submission
     */
     const onSubmit = (formData) => {
+        // navigate('/admin/dashboard')
         dispatch(loginUser(formData['username'], formData['password'],"company"));
     };
 

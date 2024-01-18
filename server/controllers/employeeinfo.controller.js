@@ -115,7 +115,6 @@ exports.CreateEmployee = async (req, res) => {
         }
 
     } catch (err) {
-        console.log(err.stack);
         res.json(400).json({ status: 400, message: err.message });
     }
 
@@ -202,7 +201,6 @@ exports.CreateEmployee = async (req, res) => {
     //         }
     //     }
     // } catch (err) {
-    //     console.log(err.stack);
     //     res.status(400).json({ status: 400, response: err.message });
     // }
 };

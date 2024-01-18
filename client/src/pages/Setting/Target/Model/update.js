@@ -23,7 +23,6 @@ function Update({modal,closeModal,data}){
 
     } 
     const handleUpdate = ()=>{ 
-        console.log(value,"valuee")
         if (value?.amount.trim()!==''){
             dispatch(updateProjectionAction({amount:value?.amount,id:data?._id}))
         }

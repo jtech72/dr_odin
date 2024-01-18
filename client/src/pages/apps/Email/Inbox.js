@@ -249,7 +249,6 @@ const Inbox = (): React$Element<React$FragmentType> => {
      */
     const handleEmailSave = (event, values) => {
         const body = draftToHtml(convertToRaw(editorState.getCurrentContent()));
-        console.log({ ...values, body });
         toggleComposeModal();
     };
 

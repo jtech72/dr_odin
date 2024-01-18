@@ -16,7 +16,6 @@ function Create({ modal, closeModal }) {
     const [showZonenModel, setShowZoneModel] = useState(false);
     
     const handelzone = (e) => {
-        // console.log(e.target.value,'nnn')
         setData({ ...data, zone: e.target.value.replace(/[^a-z. ]/gi, '') });
     };
    
@@ -35,7 +34,6 @@ function Create({ modal, closeModal }) {
         }
     };
     useEffect(() => {
-        console.log(store)
         setShowZoneModel(modal);
     }, [modal]);
 

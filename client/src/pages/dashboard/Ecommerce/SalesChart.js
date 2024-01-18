@@ -16,7 +16,6 @@ const SalesChart = (): React$Element<any> => {
         setProductList(productList?.map((ele, index) => ind === index ? { ...ele, show: !ele.show } : { ...ele, show: false }))
     }
     useEffect(() => {
-        console.log(store, "storeeee")
         setProductList(store?.ProductReportReducer?.productreport?.response)
     }, [store])
 

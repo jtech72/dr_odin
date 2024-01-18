@@ -31,7 +31,6 @@ const register = async (req, res) => {
         return res.status(200).json({ status: 200, response: userSaved });
 
     } catch (error) {
-        console.log(error.stack);
         res.status(400).json({ status: 400, message: error.message });
     }
 }
@@ -131,7 +130,6 @@ const UpdateCompany = async (req, res) => {
         }
 
         const userNameExist = await userModel.findOne({ username: { $regex: data.username, $options: "i" } });
-        console.log(userNameExist, req.body.username);
         if (userNameExist && userNameExist.username != req.body.username) {    //check username exists or not
             return res.status(200).json({ status: 401, message: "Company  already exists with this username" });
         }
@@ -209,7 +207,6 @@ const UpdateCompany = async (req, res) => {
         }
 
     } catch (err) {
-        console.log(err);
         res.status(400).json({ status: 400, message: err.message });
     }
 };
@@ -272,7 +269,6 @@ const CompanyLogin = async (req, res) => {
             res.status(200).json({ status: 401, message: 'User Not Found' });
         }
     } catch (err) {
-        console.log(err);
         res.status(400).json({ status: 400, message: err.message });
     }
 };

@@ -31,7 +31,6 @@ const VenderReport = () => {
         endDate: '', searchkey: "" ,vendor:"" }))
         // Navigate(`/product-wise-report/${value}`,{ state: { skip:value } });   
     }
-    console.log(vendordata, "nnnnn")
     useEffect(() => {
         dispatch(getVenderReportAction({ currentMonth: currentMonth, skip: skip, startDate: "", endDate: "", searchkey: "" ,vendor:"" }));
         dispatch(
@@ -74,7 +73,6 @@ const VenderReport = () => {
         return new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(x)
     }
     const handleSearchChange = (e) => {
-        console.log(e.target.value, "sdede")
         if (e.target.value.trim() !== "") {
             dispatch(getVenderReportAction({ currentMonth: currentMonth, skip: skip, startDate: "", endDate: "", searchkey: e.target.value.trim() , vendor:"" }));
         }
@@ -83,7 +81,6 @@ const VenderReport = () => {
         }
     }
     const handleSetDateRangeClick = () => {
-        // console.log(state, 'date');
         dispatch(
             getVenderReportAction({ currentMonth: 0, skip: 1, startDate: state[0]?.startDate, endDate: state[0]?.endDate, searchkey: "" ,vendor:"" })
         );
@@ -96,7 +93,6 @@ const VenderReport = () => {
         return Math.round(aver)
     }
     const handleNavigate = (route) => {
-        console.log(route)
         // let res = route.replace("/", " ")
         Navigate(`/Vendor-report/${route?.vid}`)
     }

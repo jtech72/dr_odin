@@ -21,7 +21,6 @@ function Vender() {
         }
     }
     useEffect(() => {
-        console.log(store, "storeeee")
         setvendorList(store?.VendorListReducer?.vendorreport?.response)
     }, [store])
     const INR_Format = (x) => {

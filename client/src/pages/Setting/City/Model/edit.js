@@ -34,7 +34,6 @@ function Update({modal,close,data}){
     }, [store])
 
     useEffect(() => {
-        console.log(data)
         setValue({...value,city:data?.city,stateIsdd:data?.stateId?._id})
         setUpdateModalModal(modal)
     }, [modal])
@@ -57,12 +56,7 @@ function Update({modal,close,data}){
    }
   }, [SuccessHandle]);
 
-
-   
-
-   
     
-console.log("value",value)
 return(
     <>
      <Modal xs={9}   onHide={handleModalClose}  show={updateModal}  >

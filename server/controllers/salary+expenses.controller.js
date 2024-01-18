@@ -70,7 +70,6 @@ exports.InsertRecord = async (file, body, req, res) => {
         })
 
     } catch (err) {
-        console.log(err);
         res.status(400).json({ status: 400, messsage: err.message })
     }
 }

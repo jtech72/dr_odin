@@ -19,25 +19,20 @@ function EmployeeTargetUpdate({ modal, closeModal, data }) {
   useEffect(() => {
     setValue({ ...value, empName: data?.empName, monthlytarget: data?.mnthtarget, designation: data?.designation?.designation, yearlytarget: data?.yrlytarget,state: data?.state?.state , city: data?.city?.city});
     setUpdateModalModal(modal)
-    console.log(data, "kfd;kfkESS")
   }, [modal])
   const handleModalClose = () => {
     setUpdateModalModal(false)
     closeModal()
   }
   const handelSelectedMonthTarget = (list,item)=>{
-    console.log(item,list,"sndfgydyfasvhds")
     setRender(!render)
     setMonthTargetInput(list)
-    console.log(monthTargetInput,"wdfghjkl")
 }
   const handelRemoveMonthTarget = (list,item)=>{
-    console.log(item,list,"sndfgydyfasvhds")
     setRender(!render)
     setMonthTargetInput(list)
 }
 const handleChange = (e,x)=>{
-  console.log(e.target.value,"valuue")
   setMonthData(monthData?.map((ele,ind)=>x?._id===ele?._id?{...ele,value:e.target.value}:{...ele}))
 }
 const handleUpdate = ()=>{
@@ -52,11 +47,8 @@ const handleUpdate = ()=>{
   let body={employeId:data?._id,months:month
   }
   dispatch(addMonthTarget(body))
-  console.log(month,"sbdshb")
-console.log(data)
 }
 useEffect(() => {
-  console.log(monthTargetInput,"select")
   setMonthData(store?.getFullMonthReucer?.data?.response)
 }, [render,store])
 useEffect(() => {
@@ -68,7 +60,6 @@ useEffect(() => {
  }
 }, [SuccessHandle])
 
-console.log(monthData)
   return (
     <>
     

@@ -85,7 +85,6 @@ exports.CreateTallyReport = async (req, res) => {
             return res.status(200).json({ status: 401, message: "Not Uploaded", response: tallyData });
         }
     } catch (err) {
-        console.log(err);
         res.status(400).json({ status: 400, response: err.message });
     }
 };

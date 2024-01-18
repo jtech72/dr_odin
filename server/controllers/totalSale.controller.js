@@ -25,20 +25,20 @@ exports.TotalSaleOfMonth = async (req, res) => {
     try {
         let currMonthID = await monthModel.findOne({ month: currentMonth });
         let prevMonthID = await monthModel.findOne({ month: previousMonth });
-        let c_mnthTarget = await companyTargetModel.findOne({ month: currMonthID._id, year: date.getFullYear(), companyid: companyId, trgtAmt: { $exists: true } });
-        let p_mnthTarget = await companyTargetModel.findOne({ month: prevMonthID._id, year: date.getFullYear(), companyid: companyId, trgtAmt: { $exists: true } });
+        let c_mnthTarget = await companyTargetModel.findOne({ month: currMonthID?._id, year: date.getFullYear(), companyid: companyId, trgtAmt: { $exists: true } });
+        let p_mnthTarget = await companyTargetModel.findOne({ month: prevMonthID?._id, year: date.getFullYear(), companyid: companyId, trgtAmt: { $exists: true } });
 
         if (parseInt(req.query.currentMonth)) {
             let currMonthSale = 0;
             let prevMonthSale = 0;
             let currMonth = 0;
             // Current
-            const c_match = { $and: [{ monthId: currMonthID._id }, { year: date.getFullYear() }, { companyid: companyId }] };
+            const c_match = { $and: [{ monthId: currMonthID?._id }, { year: date.getFullYear() }, { companyid: companyId }] };
             currMonthSale = await tallyModel.aggregate([{ $match: c_match }, { $group: { _id: null, "total": { $sum: "$productPrice" } } }]);
             (currMonthSale.length > 0) ? `${currMonth = currMonthSale[0].total}` : `${currMonth = 0}`;
 
             // Previous
-            const p_match = { $and: [{ monthId: prevMonthID._id }, { year: date.getFullYear() }, { companyid: companyId }] };
+            const p_match = { $and: [{ monthId: prevMonthID?._id }, { year: date.getFullYear() }, { companyid: companyId }] };
             prevMonthSale = await tallyModel.aggregate([{ $match: p_match }, { $group: { _id: null, "total": { $sum: "$productPrice" } } }]);
 
             let currPer = 0; let prevPer = 0;
@@ -78,7 +78,6 @@ exports.TotalSaleOfMonth = async (req, res) => {
             let cltdate = new Date(req.query.startDate);
             cltdate.setHours(29, 29, 59, 0);
 
-            // console.log(cm_firstDate, cm_lastDate,"======");
 
 
             // Current
@@ -107,7 +106,6 @@ exports.TotalSaleOfMonth = async (req, res) => {
             (req.query.startDate && req.query.endDate) ? `${p_date_match = { $and: [{ date: { $gte: pm_firstDate } }, { date: { $lte: pm_lastDate } }, { companyid: companyId }] }}` : `${p_date_match = { $and: [{ date: { $gte: pm_firstDate } }, { date: { $lte: pltdate } }, { companyid: companyId }] }}`;
             prevMonthSale = await tallyModel.aggregate([{ $match: p_date_match }, { $group: { _id: null, "total": { $sum: "$productPrice" } } }]);
 
-            // console.log(pm_firstDate, pm_lastDate, pltdate, "pp");
 
 
             let currPer = 0; let prevPer = 0;
@@ -117,7 +115,6 @@ exports.TotalSaleOfMonth = async (req, res) => {
                 prevPer = Math.round((prevMonthSale[0].total / p_mnthTarget.trgtAmt) * 100);
             }
 
-            // console.log(currMonthSale,prevMonthSale,"---",c_mnthTarget,p_mnthTarget,"---",currPer,prevPer,"first*/*/*");
 
 
             let status;
@@ -147,7 +144,7 @@ exports.TotalSaleOfMonth = async (req, res) => {
                         $match: {
                             $expr: {
                                 $and: [
-                                    { $eq: ["$monthId", currMonthID._id] },
+                                    { $eq: ["$monthId", currMonthID?._id] },
                                     { $eq: ["$year", date.getFullYear()] },
                                     { $eq: ["$companyid", companyId] }
                                 ]
@@ -168,7 +165,7 @@ exports.TotalSaleOfMonth = async (req, res) => {
                         $match: {
                             $expr: {
                                 $and: [
-                                    { $eq: ["$monthId", prevMonthID._id] },
+                                    { $eq: ["$monthId", prevMonthID?._id] },
                                     { $eq: ["$year", date.getFullYear()] }]
                             }
                         }
@@ -213,7 +210,7 @@ exports.TotalSaleOfMonth = async (req, res) => {
                         $match: {
                             $expr: {
                                 $and: [
-                                    { $eq: ["$monthId", currMonthID._id] },
+                                    { $eq: ["$monthId", currMonthID?._id] },
                                     { $eq: ["$year", date.getFullYear()] },
                                     { $eq: ["$companyid", companyId] }
                                 ]
@@ -235,7 +232,7 @@ exports.TotalSaleOfMonth = async (req, res) => {
                         $match: {
                             $expr: {
                                 $and: [
-                                    { $eq: ["$monthId", prevMonthID._id] },
+                                    { $eq: ["$monthId", prevMonthID?._id] },
                                     { $eq: ["$year", date.getFullYear()] }]
                             }
                         }
@@ -348,18 +345,18 @@ exports.ExpenditureOfMonth = async (req, res) => {
     try {
         let currMonthID = await monthModel.findOne({ month: currentMonth });
         let prevMonthID = await monthModel.findOne({ month: previousMonth });
-        let c_mnthTarget = await projectionModel.findOne({ month: currMonthID._id, year: date.getFullYear(), companyid: companyId, trgtAmt: { $exists: true } });
-        let p_mnthTarget = await projectionModel.findOne({ month: prevMonthID._id, year: date.getFullYear(), companyid: companyId, trgtAmt: { $exists: true } });
+        let c_mnthTarget = await projectionModel.findOne({ month: currMonthID?._id, year: date.getFullYear(), companyid: companyId, trgtAmt: { $exists: true } });
+        let p_mnthTarget = await projectionModel.findOne({ month: prevMonthID?._id, year: date.getFullYear(), companyid: companyId, trgtAmt: { $exists: true } });
 
 
         if (parseInt(req.query.currentMonth)) {
             let currMonth;
             // Current
-            const c_match = { $and: [{ monthId: currMonthID._id }, { year: date.getFullYear() }, { companyid: companyId }] };
+            const c_match = { $and: [{ monthId: currMonthID?._id }, { year: date.getFullYear() }, { companyid: companyId }] };
             const cm_expns_resp = await expensesModel.aggregate([{ $match: c_match }, { $group: { _id: null, salary: { $sum: "$ctc" }, expns: { $sum: "$expenses" } } }, { $project: { total: { $sum: ["$salary", "$expns"] } } }]);
             (cm_expns_resp.length > 0) ? `${currMonth = cm_expns_resp[0].total}` : `${currMonth = 0}`;
             // Previous
-            const p_match = { $and: [{ monthId: prevMonthID._id }, { year: date.getFullYear() }, { companyid: companyId }] };
+            const p_match = { $and: [{ monthId: prevMonthID?._id }, { year: date.getFullYear() }, { companyid: companyId }] };
             const pm_expns_resp = await expensesModel.aggregate([{ $match: p_match }, { $group: { _id: null, salary: { $sum: "$ctc" }, expns: { $sum: "$expenses" } } }, { $project: { total: { $sum: ["$salary", "$expns"] } } }]);
 
             let currPer = 0; let prevPer = 0;
@@ -389,13 +386,13 @@ exports.ExpenditureOfMonth = async (req, res) => {
 
             let currMonth;
             // Current
-            const c_match = { $and: [{ monthId: currMonthID._id }, { year: date.getFullYear() }, { companyid: companyId }] };
+            const c_match = { $and: [{ monthId: currMonthID?._id }, { year: date.getFullYear() }, { companyid: companyId }] };
             const cm_expns_resp = await expensesModel.aggregate([{ $match: c_match }, { $group: { _id: null, salary: { $sum: "$ctc" }, expns: { $sum: "$expenses" } } }, { $project: { total: { $sum: ["$salary", "$expns"] } } }]);
             (cm_expns_resp.length > 0) ? `${currMonth = cm_expns_resp[0].total}` : `${currMonth = 0}`;
 
 
             // Previous
-            const p_match = { $and: [{ monthId: prevMonthID._id }, { year: date.getFullYear() }, { companyid: companyId }] };
+            const p_match = { $and: [{ monthId: prevMonthID?._id }, { year: date.getFullYear() }, { companyid: companyId }] };
             const pm_expns_resp = await expensesModel.aggregate([{ $match: p_match }, { $group: { _id: null, salary: { $sum: "$ctc" }, expns: { $sum: "$expenses" } } }, { $project: { total: { $sum: ["$salary", "$expns"] } } }]);
 
             let currPer = 0; let prevPer = 0;
@@ -431,7 +428,7 @@ exports.ExpenditureOfMonth = async (req, res) => {
                         $match: {
                             $expr: {
                                 $and: [
-                                    { $eq: ["$monthId", currMonthID._id] },
+                                    { $eq: ["$monthId", currMonthID?._id] },
                                     { $eq: ["$year", date.getFullYear()] },
                                     { $eq: ["$company", companyId] }
                                 ]
@@ -451,7 +448,7 @@ exports.ExpenditureOfMonth = async (req, res) => {
                         $match: {
                             $expr: {
                                 $and: [
-                                    { $eq: ["$monthId", prevMonthID._id] },
+                                    { $eq: ["$monthId", prevMonthID?._id] },
                                     { $eq: ["$year", date.getFullYear()] }]
                             }
                         }
@@ -496,7 +493,7 @@ exports.ExpenditureOfMonth = async (req, res) => {
                         $match: {
                             $expr: {
                                 $and: [
-                                    { $eq: ["$monthId", currMonthID._id] },
+                                    { $eq: ["$monthId", currMonthID?._id] },
                                     { $eq: ["$year", date.getFullYear()] },
                                     { $eq: ["$companyid", companyId] }
                                 ]
@@ -518,7 +515,7 @@ exports.ExpenditureOfMonth = async (req, res) => {
                         $match: {
                             $expr: {
                                 $and: [
-                                    { $eq: ["$monthId", prevMonthID._id] },
+                                    { $eq: ["$monthId", prevMonthID?._id] },
                                     { $eq: ["$year", date.getFullYear()] },
                                     { $eq: ["$companyid", companyId] }
                                 ]
@@ -558,11 +555,11 @@ exports.ExpenditureOfMonth = async (req, res) => {
 
             let currMonth;
             // Current
-            const c_match = { $and: [{ monthId: currMonthID._id }, { year: date.getFullYear() }, { companyid: companyId }] };
+            const c_match = { $and: [{ monthId: currMonthID?._id }, { year: date.getFullYear() }, { companyid: companyId }] };
             const cm_expns_resp = await expensesModel.aggregate([{ $match: c_match }, { $group: { _id: null, salary: { $sum: "$ctc" }, expns: { $sum: "$expenses" } } }, { $project: { total: { $sum: ["$salary", "$expns"] } } }]);
             (cm_expns_resp.length > 0) ? `${currMonth = cm_expns_resp[0].total}` : `${currMonth = 0}`;
             // Previous
-            const p_match = { $and: [{ monthId: prevMonthID._id }, { year: date.getFullYear() }, { companyid: companyId }] };
+            const p_match = { $and: [{ monthId: prevMonthID?._id }, { year: date.getFullYear() }, { companyid: companyId }] };
             const pm_expns_resp = await expensesModel.aggregate([{ $match: p_match }, { $group: { _id: null, salary: { $sum: "$ctc" }, expns: { $sum: "$expenses" } } }, { $project: { total: { $sum: ["$salary", "$expns"] } } }]);
 
             let currPer = 0; let prevPer = 0;
@@ -596,8 +593,8 @@ exports.TargetAchieved = async (req, res) => {
 
     let currMonthID = await monthModel.findOne({ month: currentMonth });
     let prevMonthID = await monthModel.findOne({ month: previousMonth });
-    let c_mnthTarget = await projectionModel.findOne({ month: currMonthID._id, year: date.getFullYear(), companyid: companyId, trgtAmt: { $exists: true } });
-    let p_mnthTarget = await projectionModel.findOne({ month: prevMonthID._id, year: date.getFullYear(), companyid: companyId, trgtAmt: { $exists: true } });
+    let c_mnthTarget = await projectionModel.findOne({ month: currMonthID?._id, year: date.getFullYear(), companyid: companyId, trgtAmt: { $exists: true } });
+    let p_mnthTarget = await projectionModel.findOne({ month: prevMonthID?._id, year: date.getFullYear(), companyid: companyId, trgtAmt: { $exists: true } });
 
 
     try {
@@ -607,11 +604,11 @@ exports.TargetAchieved = async (req, res) => {
             let prevMonthSale = 0;
 
             // Current
-            const c_match = { $and: [{ monthId: currMonthID._id }, { year: date.getFullYear() }, { companyid: companyId }] };
+            const c_match = { $and: [{ monthId: currMonthID?._id }, { year: date.getFullYear() }, { companyid: companyId }] };
             currMonthSale = await tallyModel.aggregate([{ $match: c_match }, { $group: { _id: null, "total": { $sum: "$productPrice" } } }]);
           
             // Previous
-            const p_match = { $and: [{ monthId: prevMonthID._id }, { year: date.getFullYear() }, { companyid: companyId }] };
+            const p_match = { $and: [{ monthId: prevMonthID?._id }, { year: date.getFullYear() }, { companyid: companyId }] };
             prevMonthSale = await tallyModel.aggregate([{ $match: p_match }, { $group: { _id: null, "total": { $sum: "$productPrice" } } }]);
             let currPer = 0; let prevPer = 0;
 
@@ -654,7 +651,6 @@ exports.TargetAchieved = async (req, res) => {
             let cltdate = new Date(req.query.startDate);
             cltdate.setHours(29, 29, 59, 0);
 
-            // console.log(cm_firstDate, cm_lastDate, cltdate, "current");
 
             // Current
             let c_date_match;
@@ -675,7 +671,6 @@ exports.TargetAchieved = async (req, res) => {
             let pltdate = new Date(fdate.setMonth(date.getMonth() - 1));
             pltdate.setHours(29, 29, 59, 0);
 
-            // console.log(pm_firstDate, pm_lastDate, pltdate,"previous");
 
 
             // Sale
@@ -692,7 +687,6 @@ exports.TargetAchieved = async (req, res) => {
                 currPer = Math.round((currMonthSale[0].total / c_mnthTarget.trgtAmt) * 100);
             }
 
-            // console.log(currMonthSale, prevMonthSale, "----", c_mnthTarget, p_mnthTarget, "---", currPer, prevPer);
 
 
             let status;
@@ -721,7 +715,7 @@ exports.TargetAchieved = async (req, res) => {
                         $match: {
                             $expr: {
                                 $and: [
-                                    { $eq: ["$monthId", currMonthID._id] },
+                                    { $eq: ["$monthId", currMonthID?._id] },
                                     { $eq: ["$year", date.getFullYear()] },
                                     { $eq: ["$companyid", companyId] }
                                 ]
@@ -740,7 +734,7 @@ exports.TargetAchieved = async (req, res) => {
                         $match: {
                             $expr: {
                                 $and: [
-                                    { $eq: ["$monthId", prevMonthID._id] },
+                                    { $eq: ["$monthId", prevMonthID?._id] },
                                     { $eq: ["$year", date.getFullYear()] },
                                     { $eq: ["$companyid", companyId] }
                                 ]
@@ -789,7 +783,7 @@ exports.TargetAchieved = async (req, res) => {
                         $match: {
                             $expr: {
                                 $and: [
-                                    { $eq: ["$monthId", currMonthID._id] },
+                                    { $eq: ["$monthId", currMonthID?._id] },
                                     { $eq: ["$year", date.getFullYear()] },
                                     { $eq: ["$companyid", companyId] }
                                 ]
@@ -809,7 +803,7 @@ exports.TargetAchieved = async (req, res) => {
                         $match: {
                             $expr: {
                                 $and: [
-                                    { $eq: ["$monthId", prevMonthID._id] },
+                                    { $eq: ["$monthId", prevMonthID?._id] },
                                     { $eq: ["$year", date.getFullYear()] },
                                     { $eq: ["$companyid", companyId] }
                                 ]
@@ -1089,8 +1083,8 @@ exports.OverAllSale = async (req, res) => {
             const month = monthNames[nextMnth.getMonth()];
             const currMonthID = await monthModel.findOne({ month: month });
 
-            const saleGraphData = await tallyModel.find({ "$and": [{ monthId: currMonthID._id }, { totalAmount: { $exists: true } }, { companyid: companyId }] }).sort({ createdAt: -1 }).select('productPrice');
-            const expenditureGraphData = await expensesModel.find({ "$and": [{ monthId: currMonthID._id }, { expenses: { $exists: true } }, { companyid: companyId }] }).sort({ createdAt: -1 }).select('expenses ctc');
+            const saleGraphData = await tallyModel.find({ "$and": [{ monthId: currMonthID?._id }, { totalAmount: { $exists: true } }, { companyid: companyId }] }).sort({ createdAt: -1 }).select('productPrice');
+            const expenditureGraphData = await expensesModel.find({ "$and": [{ monthId: currMonthID?._id }, { expenses: { $exists: true } }, { companyid: companyId }] }).sort({ createdAt: -1 }).select('expenses ctc');
 
             if (saleGraphData.length > 0) {
                 for (let j = 0; j < saleGraphData.length; j++) {
@@ -1146,7 +1140,7 @@ exports.ZoneRevenue = async (req, res) => {
 
                 const employees = await employeeInfoModel.find({ zoneId: zone[i]._id, status: true, companyid: companyId });
                 for (var j = 0; j < employees.length; j++) {
-                    var tally_response = await tallyModel.findOne({ employee: employees[j].empName, monthId: currMonthID._id, companyid: companyId });
+                    var tally_response = await tallyModel.findOne({ employee: employees[j].empName, monthId: currMonthID?._id, companyid: companyId });
 
                     if (tally_response) {
                         revenue += tally_response.totalAmount

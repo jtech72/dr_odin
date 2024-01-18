@@ -163,7 +163,6 @@ function* createDesignation({
         });
     }
 } catch (error) {
-    console.log(error)
     yield put({
         type: CreateStateActionTypes.INSERT_DESIGNATION_ERROR,
         payload: { message: error?.message },
@@ -200,7 +199,6 @@ function* deleteState({
         });
     }
 } catch (error) {
-    console.log(error)
     yield put({
         type: CreateStateActionTypes.DELETE_STATE_ERROR,
         payload: { message: error?.message },
@@ -233,7 +231,6 @@ function* updateState({
         });
     }
 } catch (error) {
-    console.log(error)
     yield put({
         type: CreateStateActionTypes.UPDATE_STATE_ERROR,
         payload: { message: error?.message },
@@ -265,7 +262,6 @@ function* updateCity({
         });
     }
 } catch (error) {
-    console.log(error)
     yield put({
         type: CreateStateActionTypes.UPDATE_CITY_ERROR,
         payload: { message: error?.message },
@@ -298,7 +294,6 @@ function* deleteCity({
         });
     }
 } catch (error) {
-    console.log(error)
     yield put({
         type: CreateStateActionTypes.DELETE_CITY_ERROR,
         payload: { message: error?.message },
@@ -332,7 +327,6 @@ function* updatedDesignation({
         });
     }
 } catch (error) {
-    console.log(error)
     yield put({
         type: CreateStateActionTypes.UPDATE_DESIGNATION_ERROR,
         payload: { message: error?.message },
@@ -365,7 +359,6 @@ function* deleteDesignation({
         });
     }
 } catch (error) {
-    console.log(error)
     yield put({
         type: CreateStateActionTypes.DELETE_DESIGNATION_ERROR,
         payload: { message: error?.message },
@@ -397,7 +390,6 @@ function* createProjectionData({
         });
     }
 } catch (error) {
-    console.log(error)
     yield put({
         type: CreateStateActionTypes.CREATE_PROJECTION_ERROR,
         payload: { message: error?.message },
@@ -462,7 +454,6 @@ function* updatedProjection({
         });
     }
 } catch (error) {
-    console.log(error)
     yield put({
         type: CreateStateActionTypes.UPDATE_PROJECTION_ERROR,
         payload: { message: error?.message },
@@ -495,7 +486,6 @@ function* getCityByState({
         });
     }
 } catch (error) {
-    console.log(error)
     yield put({
         type: CreateStateActionTypes.GET_CITY_BY_STATE_ERROR,
         payload: { message: error?.message },
@@ -528,7 +518,6 @@ function* getStateByZone({
         });
     }
 } catch (error) {
-    console.log(error)
     yield put({
         type: CreateStateActionTypes.GET_STATE_BY_ZONE_ERROR,
         payload: { message: error?.message },
@@ -627,7 +616,6 @@ function* updateZone({
         });
     }
 } catch (error) {
-    console.log(error)
     yield put({
         type: CreateStateActionTypes.UPDATE_ZONE_ERROR,
         payload: { message: error?.message },
@@ -660,7 +648,6 @@ function* deleteZone({
         });
     }
 } catch (error) {
-    // console.log(error)
     yield put({
         type: CreateStateActionTypes.DELETE_ZONE_ERROR,
         payload: { message: error?.message },
@@ -693,7 +680,6 @@ function* getFullMonths({
         });
     }
 } catch (error) {
-    // console.log(error)
     yield put({
         type: CreateStateActionTypes.GET_FULL_MONTHS_ERROR,
         payload: { message: error?.message },
@@ -726,7 +712,6 @@ function* getMonthTarget({
         });
     }
 } catch (error) {
-    // console.log(error)
     yield put({
         type: CreateStateActionTypes.ADD_MONTHS_TARGET_ERROR,
         payload: { message: error?.message },

@@ -29,7 +29,6 @@ function* login({ payload: { username, password ,role} }) {
     try {
         let response = yield call(adminLogin, { username, password });
         let user = response.data;
-        console.log(response,"responseee")
         if(user?.status==200){
             let userData = {
                 firstName:"Test",
@@ -66,7 +65,6 @@ else{
     try {
         let response = yield call(loginApi, { username, password });
         let user = response.data;
-        console.log(response,"responseeeeeeeeeeeeeeeeeeeeeeeeeeee")
         if(user.status==200){
             let userData = {
                 firstName:"Test",

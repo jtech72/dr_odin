@@ -19,7 +19,6 @@ function Update({modal,closeModal,data}){
         closeModal()
     }
     const handleUpdatedZone = (e)=>{
-      // console.log(e.target.value,"nnnn")
         setValue({...value,updatedZone:e.target.value.replace(/[^a-z. ]/gi, '')})
     } 
     const handleUpdate = ()=>{
@@ -32,13 +31,10 @@ function Update({modal,closeModal,data}){
         {
 ToastHandle("error","zone can't be empty")
         }
-     
         
     }
 
-
     useEffect(()=>{
-        console.log(data,"sdkdfn")
         setValue({...value,zone:data?.zone})
         setUpdateModalModal(modal)
     },[modal])

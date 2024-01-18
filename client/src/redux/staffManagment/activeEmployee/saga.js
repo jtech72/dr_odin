@@ -32,7 +32,6 @@ function* activeEmployeeList({payload}) {
 function* activeEmployeeCreate({
         payload
 }) {
-    console.log(payload,"chandnand")
         try {
         yield put({
             type: ActiveEmployeeActionTypes.EMPLOYEE_CREATE_LOADING,
@@ -113,7 +112,6 @@ function* GetreportingManager({
     
     payload
 }) {
-console.log(payload,"chandnand")
     try {
     yield put({
         type: ActiveEmployeeActionTypes.GET_REPORTING_MANAGER_BY_DESIGNATION_LOADING,

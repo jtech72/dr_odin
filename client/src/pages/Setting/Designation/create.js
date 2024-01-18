@@ -41,7 +41,6 @@ function Create({ modal, closeModal }) {
         isHead: value?.check
       }
       dispatch(insertDesignation(body))
-      // console.log(body,"vvvvv")
     }
     else {
       ToastHandle("error", " Designation is required")

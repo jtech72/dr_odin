@@ -11,8 +11,6 @@ const SingleProductListPage = () => {
     const params = useParams()
     const dispatch = useDispatch();
     const {id } = params
-    console.log(params,"sdfjj")
-    console.log(id)
   useEffect(() => {
     dispatch(getProductDetailAction(id))
 }, [])
@@ -25,7 +23,6 @@ useEffect(() => {
 const INR_Format = (x) => {
     return new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(x);
 };
-console.log(data,store,"***************************")
   return (
     
     <>
