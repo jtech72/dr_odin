@@ -6,6 +6,7 @@ import "../Model/edit.css"
 import { Row, Col, Form, Card, Button,} from 'react-bootstrap';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
+import addYears from 'date-fns/addYears';
 import { useDispatch, useSelector } from 'react-redux';
 import { activeEmployeeCreateAction, reportingManagerByDesignationAction, } from '../../../../redux/staffManagment/activeEmployee/actions';
 import { getcityByState, getStateByZone } from '../../../../redux/setting/action';
@@ -46,12 +47,12 @@ const Create = ({modelShow,close}) => {
        
     }
 
-    console.log(errors, "Vishal")
     const handleZoneChange = (e) => {
         setData({ ...data, zone: e.target.value })
         dispatch(getStateByZone(e.target.value))
     }
     const handleStateChange = (e) => {
+        console.log(e.target.value,"hhhiiiiii")
         setData({ ...data, state: e.target.value })
         dispatch(getcityByState(e.target.value))
     }
@@ -235,7 +236,7 @@ const Create = ({modelShow,close}) => {
                                                                             onChange={handleStateChange}
                                                                         >
                                                                             <option value=""> --Select-- </option>
-                                                                            {store?.getStateByZoneReducer?.data?.response?.length > 0 ? store?.getStateByZoneReducer?.data?.response?.map((ele, ind) => {
+                                                                            {store?.getStateReducer?.data?.response?.length > 0 ? store?.getStateReducer?.data?.response?.map((ele, ind) => {
                                                                                 return (
 
                                                                                     <option key={ele?._id} value={ele?._id}>{ele?.state} </option>
@@ -267,7 +268,7 @@ const Create = ({modelShow,close}) => {
                                                                         <Form.Select {...register("city", { required: true })}
                                                                         >
                                                                             <option value=""> --Select-- </option>
-                                                                            {store?.getCityByState?.data?.response?.length > 0 ? store?.getCityByState?.data?.response?.map((ele, ind) => {
+                                                                            {store?.getCityReducer?.data?.response?.length > 0 ? store?.getCityReducer?.data?.response?.map((ele, ind) => {
                                                                                 return (
 
                                                                                     <option key={ele?._id} value={ele?._id}>{ele?.city} </option>

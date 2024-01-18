@@ -119,6 +119,7 @@ function UploadStaffManagmentPage() {
         dispatch(getDesignationByPost());
         dispatch(getZoneAction());
         dispatch(getState());
+        // getStateByZon(())
         dispatch(reportingManagerByDesignationAction());
         dispatch(getCity({ id: "", skip:"" }));
         console.log(store, 'dd');

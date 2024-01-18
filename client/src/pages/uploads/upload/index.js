@@ -6,10 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MonthList } from '../../../redux/month/actions';
 import Modal from 'react-bootstrap/Modal';
 import { DateRangePicker } from 'react-date-range';
+import addYears from 'date-fns/addYears';
 import { Calendar } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
-import { addDays, subDays } from 'date-fns';
+import subDays  from 'date-fns/subDays';
+import addDays from "date-fns/addDays"
 import Papa, { parse } from 'papaparse';
 import moment from 'moment';
 import { UploadTellyReportPOST, UploadSecondReport,uploadSalaryExpanses, uploadRateDifference } from '../../../redux/actions';
@@ -45,6 +47,12 @@ function UploadDashBoardPage() {
             key: 'selection',
         },
     ]);
+    // const addYears = (date, years) => {
+    //     const newDate = new Date(date);
+    //     newDate.setFullYear(newDate.getFullYear() + years);
+    //     return newDate;
+    //   };
+      
     const [activemonth, setActivemonth] = useState(2);
     const [monthId, setMonthId] = useState('');
     const [tallyDate, setTallyDate] = useState();
