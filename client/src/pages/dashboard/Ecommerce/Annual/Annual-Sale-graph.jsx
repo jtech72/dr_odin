@@ -36,7 +36,6 @@ function AnnualSaleGraph() {
         dispatch(AnnalTargetSummmary(1));
     }, []);
     useEffect(() => {
-        console.log(store, 'dnedkje  ');
         if (getAnnualGraphDataHandle.data?.status == 200) {
             setGraphDataa(store?.annualSaleSummaryReducer?.data?.response);
         }
@@ -48,7 +47,6 @@ function AnnualSaleGraph() {
         }
     }, [store]);
 
-    console.log(graphDataa,"salevssalary")
     function percentage(partialValue, totalValue) {
        let res = (100 * partialValue) / totalValue
            if(totalValue===0){

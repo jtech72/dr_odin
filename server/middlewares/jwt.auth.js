@@ -37,7 +37,6 @@ const verifyToken = async(req, res, next) => {
         }
         next();
     } catch (err) {
-        console.log(err);
         res.status(400).json({ message: "Unauthorized User" });
     }
     // try {    

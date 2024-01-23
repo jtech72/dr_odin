@@ -32,7 +32,6 @@ function Productreport() {
     const [isFilter, setIsFilter] = useState(false);
     const getProductHandle = store?.ProductReportReducer;
     const csvHandle = store?.ProductCSVReportReducer;
-    console.log(store, 'storevishal');
     const [state, setState] = useState([
         {
             startDate: new Date(),
@@ -53,7 +52,6 @@ function Productreport() {
         }
     };
     const handleSearchChange = (e) => {
-        console.log(e.target.value, 'sdede');
         if (e.target.value.trim() !== '') {
             dispatch(
                 productWiseReportAction({
@@ -100,7 +98,6 @@ function Productreport() {
         downloadFileDocument();
     };
     useEffect(() => {
-        console.log(location, 'uselocation');
         dispatch(
             productWiseReportAction({
                 currentMonth: currentMonth,
@@ -134,9 +131,7 @@ function Productreport() {
         }
     }, [store]);
 
-    console.log(CsvData, 'edfe');
     const handleSetDateRangeClick = () => {
-        console.log(state, 'date');
         setIsFilter(true);
         dispatch(
             productWiseReportAction({
@@ -172,7 +167,6 @@ function Productreport() {
     const handleNavigate = (route) => {
         // let res = route.replace("/", " ")
         Navigate(`/product-wise-report/${route?.pid}`)
-        console.log(route,"vr")
     
     }
    

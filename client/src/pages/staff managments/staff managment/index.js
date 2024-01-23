@@ -59,7 +59,6 @@ function UploadStaffManagmentPage() {
             zoneId: ele?.zoneId?._id
         }
         dispatch(reportingManagerByDesignationAction(body));
-        console.log(ele, 'df');
         setEditData(ele);
         setTimeout(() => {
             setIsModelSHow(true);
@@ -121,7 +120,6 @@ function UploadStaffManagmentPage() {
         dispatch(getState());
         dispatch(reportingManagerByDesignationAction());
         dispatch(getCity({ id: "", skip:"" }));
-        console.log(store, 'dd');
     }, []);
 
     useEffect(() => {

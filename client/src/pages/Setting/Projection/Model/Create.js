@@ -38,7 +38,6 @@ function Create({ modal, closeModal }) {
         }
     };
     useEffect(() => {
-        console.log(store)
         setShowProjectionModel(modal);
     }, [modal]);
 

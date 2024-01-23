@@ -63,7 +63,6 @@ const Login2 = (): React$Element<React$FragmentType> => {
      * handle form submission
      */
     const onSubmit = (formData) => {
-        console.log(formData)
         dispatch(loginUser(formData['username'], formData['password'], "admin"));
     };
     return (

@@ -4,7 +4,6 @@ import * as URL from "../../../constants/endPoint"
 const api = new APICore()
 
 function getActiveEmployeeApi(data):any{
-    console.log(data,"payloadd")
     return api.get (`${URL.GET_EMPLOYEE}?Askip=${data?.payload?.skip}&Lskip=${data?.payload?.leftSkip}&name=${data?.payload?.searchkey}`)
 }
 

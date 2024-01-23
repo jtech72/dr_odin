@@ -63,9 +63,7 @@ function UploadDashBoardPage() {
         }
     }, [Data]);
 
-    console.log(store, 'dsfg');
     const handleButtonChange = (item) => {
-        console.log(item);
         setChangeItem(item);
         // setTableData(tableData.map((ele,ind)=>item?._id===ele?._id?{...ele,status:!ele.status}:{...ele,status:false}))
         setShow(true);
@@ -88,7 +86,6 @@ function UploadDashBoardPage() {
     const handleOnChange = (ranges) => {
         const { selection } = ranges;
         // onChange(selection);
-        console.log(selection, 'df');
         setState([selection]);
     };
     const handleCloseDateRanges = () => {
@@ -96,8 +93,6 @@ function UploadDashBoardPage() {
     };
 
     const handleSalaryUpload = (e,record)=>{
-        console.log(e.target.files[0], 'vishalll');
-        console.log(record,'record');
         let body = new FormData();
         body.append("file",e.target.files[0]);
         body.append("monthId",record?._id);
@@ -107,8 +102,6 @@ function UploadDashBoardPage() {
        
     }
     const handleCreditNote = (e, record) => {
-        console.log(e.target.files[0], 'vdsjfvnkfj');
-        console.log(record, 'record');
         if (e?.target?.files?.length) {
             const inputFile = e.target.files[0];
 
@@ -120,7 +113,6 @@ function UploadDashBoardPage() {
                 setTallyError('Please input a csv file');
                 return;
             }
-            console.log(fileExtension, inputFile, 'sd');
 
             // If input type is correct set the state
 
@@ -128,10 +120,8 @@ function UploadDashBoardPage() {
         }
     };
     const handleCreditParse = (files, record) => {
-        console.log(state, 'state');
         // If user clicks the parse button without
         // a file we show a error
-        // if (!) return console.log("erororoorooor");
 
         // Initialize a reader which allows user
         // to read any file or blob.
@@ -140,7 +130,6 @@ function UploadDashBoardPage() {
         // Event listener on reader when the file
         // loads, we parse it and set the data.
         reader.onload = async ({ target }) => {
-            console.log(target, 'asdf');
             let fill = false;
             let arrD = [];
             let finalArr = [];
@@ -148,7 +137,6 @@ function UploadDashBoardPage() {
                 header: true,
                 skipEmptyLines: true,
             });
-            console.log(csv, 'csvvv');
             const parsedData = csv?.data;
             let result = [];
             if(Object.keys(parsedData[0])[0]==='PASSIM TECHNOLOGIES'){
@@ -200,8 +188,6 @@ function UploadDashBoardPage() {
                 ToastHandle("error","Please choose correct file with selected date")
             }
            setFile("")
-            console.log(obj, 'object');
-            console.log(obj);
         } catch (error) {
                 ToastHandle("error","Please choose correct file")
         }
@@ -223,7 +209,6 @@ function UploadDashBoardPage() {
     
       
         reader.onload = async ({ target }) => {
-          console.log(target, "asdf");
           let fill = false;
           let arrD = [];
           let finalArr = [];
@@ -231,9 +216,7 @@ function UploadDashBoardPage() {
             header: true,
             skipEmptyLines: true,
           });
-          console.log(csv, "csvvv");
           const parsedData = csv?.data;
-          console.log(parsedData, "SAfdsadffsf");
           
     
           for (let i = 0; i < parsedData.length; i++) {
@@ -255,7 +238,6 @@ function UploadDashBoardPage() {
           }
           finalArr.push(arrD);
           
-          console.log(finalArr, "vishal");
         
     
           let main = [];
@@ -315,7 +297,6 @@ function UploadDashBoardPage() {
         }
     
           
-          console.log(main, "main");
           let response = main?.map((ele,ind)=>{
             if(getepochTIme(state[0].startDate)<=getepochTIme(ele?.date[0]) && getepochTIme(state[0].endDate)>=getepochTIme(ele?.date[0])){
                 return ele
@@ -323,7 +304,6 @@ function UploadDashBoardPage() {
         })
         let finalResponse = response.filter((ele)=>ele)
         if(finalResponse.length){
-console.log(finalResponse,"fina;")
             dispatch(uploadRateDifference(finalResponse));
         }
         else {
@@ -338,13 +318,9 @@ console.log(finalResponse,"fina;")
     }
 
     const handleTallyChange = (e, record) => {
-    //   setFile(e.target.files[0]);
-      console.log(e.target.files[0], 'vdsjfvnkfj');
-      console.log(record, 'record');
       setTallyError('');
       if (e.target.files.length) {
           const inputFile = e.target.files[0];
-
           // Check the file extensions, if it not
           // included in the allowed extensions
           // we show the error
@@ -353,7 +329,6 @@ console.log(finalResponse,"fina;")
               setTallyError('Please input a csv file');
               return;
           }
-          console.log(fileExtension, inputFile, 'sd');
 
           // If input type is correct set the state
 
@@ -362,10 +337,8 @@ console.log(finalResponse,"fina;")
     };
 
     const handletellyFileParse = (files, record) => {
-        console.log(state, 'state');
         // If user clicks the parse button without
         // a file we show a error
-        // if (!) return console.log("erororoorooor");
 
         // Initialize a reader which allows user
         // to read any file or blob.
@@ -374,7 +347,6 @@ console.log(finalResponse,"fina;")
         // Event listener on reader when the file
         // loads, we parse it and set the data.
         reader.onload = async ({ target }) => {
-            console.log(target, 'asdf');
             let fill = false;
             let arrD = [];
             let finalArr = [];
@@ -382,12 +354,9 @@ console.log(finalResponse,"fina;")
                 header: true,
                 skipEmptyLines: true,
             });
-            console.log(csv, 'csvvv');
             const parsedData = csv?.data;
-            console.log(parsedData, 'SAfdsadffsf');
             let result = [];
             if(Object.keys(parsedData[0])[0]==='PASSIM TECHNOLOGIES'){
-              
             
             for (let i = 0; i < parsedData.length; i++) {
                 let arr = parsedData[i]?.['PASSIM TECHNOLOGIES'];
@@ -408,7 +377,6 @@ console.log(finalResponse,"fina;")
             }
             finalArr.push(arrD);
             try {
-                console.log(finalArr,"finallll")
              let main = [];
 
       for (let i = 0; i < finalArr.length; i++) {
@@ -432,11 +400,9 @@ console.log(finalResponse,"fina;")
         // obj.endDate.push(state[0]?.endDate)
         if(finalArr[i].filter((ele)=>ele?._1.split(" ")[1]==="PCS" || ele?._1.split(" ")[1]==="BOX" || ele?._1.split(" ")[1]==="KGS")){
             var filterArr  = finalArr[i].filter((ele)=>ele?._1.split(" ")[1]==="PCS" || ele?._1.split(" ")[1]==="BOX"|| ele?._1.split(" ")[1]==="KGS")
-            console.log(filterArr,"filter "+i)
           }
         for (let j = 0; j < finalArr[i].length; j++) {
           if (finalArr[i][j]?.["PASSIM TECHNOLOGIES"] !== "") {
-            console.log(new Date(finalArr[i][j]?.["PASSIM TECHNOLOGIES"]),"VISHAL")
             obj.date.push(new Date(finalArr[i][j]?.["PASSIM TECHNOLOGIES"]).toString());
           }
           if(finalArr[i][0]?.[""]!==""&&finalArr[i][0]?.[""]!==obj?.company[0]){
@@ -486,15 +452,12 @@ console.log(finalResponse,"fina;")
         };
       }
               
-            console.log(main, 'object');
             let response = main.map((ele,ind)=>{
                 if(getepochTIme(state[0].startDate)<=getepochTIme(ele?.date[0]) && getepochTIme(state[0].endDate)>=getepochTIme(ele?.date[0])){
                     return ele
                 }
             })
-            console.log(response,"response")
             let filterres = response.filter((ele)=>ele)
-            console.log(filterres,"filter")
             if(filterres.length){
                 dispatch(UploadSecondReport(filterres));
             }
@@ -502,7 +465,6 @@ console.log(finalResponse,"fina;")
                 ToastHandle("error","Please choose correct file with selected date")
             }
             setFile("")
-            console.log(obj);
         } catch (error) {
             ToastHandle("error","Please choose correct file")
         }
@@ -522,7 +484,6 @@ console.log(finalResponse,"fina;")
     };
     const handleUploadTallyClick = (ind, rec) => {
         let dat = rec.date;
-        console.log(rec);
         setState([
             {
                 startDate: subDays(new Date(dat), 0),

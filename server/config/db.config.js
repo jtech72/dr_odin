@@ -6,10 +6,10 @@ const connectionParams = {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }
+
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.MONGO_URI, connectionParams)
     .then(() => {
-        console.log('Connected to the database')
         // initial();
     })
     .catch((err) => {
@@ -24,30 +24,24 @@ mongoose.connect(process.env.MONGO_URI, connectionParams)
 //                 name: "user"
 //             }).save(err => {
 //                 if (err) {
-//                     console.log("error", err);
 //                 }
 
-//                 console.log("added 'user' to roles collection");
 //             });
 
 //             new Role({
 //                 name: "moderator"
 //             }).save(err => {
 //                 if (err) {
-//                     console.log("error", err);
 //                 }
 
-//                 console.log("added 'moderator' to roles collection");
 //             });
 
 //             new Role({
 //                 name: "admin"
 //             }).save(err => {
 //                 if (err) {
-//                     console.log("error", err);
 //                 }
 
-//                 console.log("added 'admin' to roles collection");
 //             });
 //         }
 //     });

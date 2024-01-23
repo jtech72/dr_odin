@@ -5,7 +5,6 @@ import { getTotalMonthSaleApi,getTotalExpenditureApi,getfilterProductDataApi, ge
 // total month sale
 function* totalMonthSale({payload}) {
     try {
-        console.log(payload,"payload")
         yield put({
             type: TotalMonthSaleActionTypes.TOTALMONTH_SALE_LOADING,
             payload: {},
@@ -49,7 +48,6 @@ function* totalExpenditure() {
             });
         }
     } catch (error) {
-        console.log(error,"error")
         yield put({
             type: TotalMonthSaleActionTypes.TOTAL_EXPENDITURE_ERROR,
             payload: { message: "server issue" },
@@ -76,7 +74,6 @@ function* monthExpenditure({payload}) {
             });
         }
     } catch (error) {
-        console.log(error,"error")
         yield put({
             type: TotalMonthSaleActionTypes.MONTH_EXPENDITURE_ERROR,
             payload: { message: error?.message },
@@ -218,7 +215,6 @@ function* VendorReportCSV({payload}) {
 }
 function* annualSaleGraph({payload}) {
     try {
-        console.log(payload,"payload")
         yield put({
             type: TotalMonthSaleActionTypes.GET_ANNUAL_SALE_GRAPH_LOADING,
             payload: {},
@@ -244,7 +240,6 @@ function* annualSaleGraph({payload}) {
 }
 function* overAllGraphData({payload}) {
     try {
-        console.log(payload,"payload")
         yield put({
             type: TotalMonthSaleActionTypes.GET_OVERALL_DATA_LOADING,
             payload: {},
@@ -271,7 +266,6 @@ function* overAllGraphData({payload}) {
 // Sale Executive Report
 function* saleExecutiveReport({payload}) {
     try {
-        console.log(payload,"payloadsaleeess")
         yield put({
             type: TotalMonthSaleActionTypes.GET_SALE_EXECUTIVE_REPORT_LOADING,
             payload: {},
@@ -315,7 +309,6 @@ function* revenueByLocation({payload}) {
             });
         }
     } catch (error) {
-        console.log(error,"error")
         yield put({
             type: TotalMonthSaleActionTypes.GET_REVENUE_BY_LOCATION_ERROR,
             payload: { message: error?.message },
@@ -342,7 +335,6 @@ function* northZoneReport({payload}) {
             });
         }
     } catch (error) {
-        console.log(error,"error")
         yield put({
             type: TotalMonthSaleActionTypes.GET_NORTH_ZONE_REPORT_ERROR,
             payload: { message: error?.message },
@@ -369,7 +361,6 @@ function* southZoneReport({payload}) {
             });
         }
     } catch (error) {
-        console.log(error,"error")
         yield put({
             type: TotalMonthSaleActionTypes.GET_SOUTH_ZONE_REPORT_ERROR,
             payload: { message: error?.message },
@@ -396,7 +387,6 @@ function* eastZoneReport({payload}) {
             });
         }
     } catch (error) {
-        console.log(error,"error")
         yield put({
             type: TotalMonthSaleActionTypes.GET_EAST_ZONE_REPORT_ERROR,
             payload: { message: error?.message },
@@ -423,7 +413,6 @@ function* westZoneReport({payload}) {
             });
         }
     } catch (error) {
-        console.log(error,"error")
         yield put({
             type: TotalMonthSaleActionTypes.GET_WEST_ZONE_REPORT_ERROR,
             payload: { message: error?.message },
@@ -450,7 +439,6 @@ function* centralZoneReport({payload}) {
             });
         }
     } catch (error) {
-        console.log(error,"error")
         yield put({
             type: TotalMonthSaleActionTypes.GET_CENTRAL_ZONE_REPORT_ERROR,
             payload: { message: error?.message },
@@ -482,7 +470,6 @@ function* Bdelist({payload}) {
             });
         }
     } catch (error) {
-        console.log(error,"error")
         yield put({
             type: TotalMonthSaleActionTypes.GET_BDE_LIST_ERROR,
             payload: { message: error?.message },
@@ -512,7 +499,6 @@ function* BdeSouthlist({payload}) {
             });
         }
     } catch (error) {
-        console.log(error,"error")
         yield put({
             type: TotalMonthSaleActionTypes.GET_BDE_SOUTH_LIST_ERROR,
             payload: { message: error?.message },
@@ -542,7 +528,6 @@ function* BdeEastlist({payload}) {
             });
         }
     } catch (error) {
-        console.log(error,"error")
         yield put({
             type: TotalMonthSaleActionTypes.GET_BDE_EAST_LIST_ERROR,
             payload: { message: error?.message },
@@ -572,7 +557,6 @@ function* BdeWestlist({payload}) {
             });
         }
     } catch (error) {
-        console.log(error,"error")
         yield put({
             type: TotalMonthSaleActionTypes.GET_BDE_WEST_LIST_ERROR,
             payload: { message: error?.message },
@@ -602,7 +586,6 @@ function* BdeCenterlist({payload}) {
             });
         }
     } catch (error) {
-        console.log(error,"error")
         yield put({
             type: TotalMonthSaleActionTypes.GET_BDE_CENTER_LIST_ERROR,
             payload: { message: error?.message },
@@ -632,7 +615,6 @@ function* getFilterProductData({payload}){
             });
         }
     } catch (error) {
-        console.log(error,"error")
         yield put({
             type: TotalMonthSaleActionTypes.GET_FILTER_PRODUCT_DATA_ERROR,
             payload: { message: error?.message },
@@ -641,7 +623,6 @@ function* getFilterProductData({payload}){
 }
 function* getProductDetail({payload}) {
     try {
-        console.log(payload,"payload")
         yield put({
             type: TotalMonthSaleActionTypes.GET_PRODUCT_DETAIL_REPORT_LOADING,
             payload: {},
@@ -671,7 +652,6 @@ function* getProductDetail({payload}) {
 }
 function* getVendorDetail({payload}) {
     try {
-        console.log(payload,"payload")
         yield put({
             type: TotalMonthSaleActionTypes.GET_VENDOR_DETAIL_REPORT_LOADING,
             payload: {},

@@ -59,7 +59,6 @@ function Edit({ modal, closeModal, data }) {
     })
 
   }, [modal])
-  console.log(data, "dataaaaaaaaaaaaaaaa")
   useEffect(() => {
     if (loaderHandle?.loading) {
       setloader(true)
@@ -71,7 +70,6 @@ function Edit({ modal, closeModal, data }) {
       reset()
     }
     else if (errorHandle == 401) {
-      console.log("iamHEre")
       ToastHandle("error", store?.companyStatusReducer?.message)
     }
     else if (errorHandle == 405) {

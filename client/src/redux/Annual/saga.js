@@ -4,7 +4,6 @@ import {getAnnualSaleSummaryApi,getSalesVsSalaryReportApi,AnnualTargetSummaryApi
 
 function* getAnnnualSaleSummaryReport({payload}) {
     try {
-        console.log(payload,"payload")
         yield put({
             type: GraphTypes.GET_ANNUAL_SALARY_SUMMARY_LOADING,
             payload: {},
@@ -35,7 +34,6 @@ function* getAnnnualSaleSummaryReport({payload}) {
 
 function* getSalesVsSalaryReport({payload}) {
     try {
-        console.log(payload,"payload")
         yield put({
             type: GraphTypes.GET_SALES_VS_SALARY_LOADING,
             payload: {},
@@ -66,7 +64,6 @@ function* getSalesVsSalaryReport({payload}) {
 
 function* getAnnualTargetSummary({payload}) {
     try {
-        console.log(payload,"payload")
         yield put({
             type: GraphTypes.GET_ANNUAL_TARGET_SUMMARY_LOADING,
             payload: {},

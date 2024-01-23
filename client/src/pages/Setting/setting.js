@@ -58,7 +58,6 @@ setData({...data,enterCity:e.target.value})
     setupdateStateModel(true)
   }
   const handleUpdateDesignation =(ele)=>{
-    console.log(ele,"df")
     setselectedDesignation(ele)
     setupdateDesignationModel(true)
   }
@@ -96,7 +95,6 @@ setData({...data,designation:e.target.value})
 const handleDesignation = ()=>{
   let body = {designation:data?.designation}
   dispatch(insertDesignation(body))
-  console.log("dsnfj")
   
 }
 const handleUpdateStatebutton=()=>{

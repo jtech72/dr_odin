@@ -26,7 +26,6 @@ const Create = ({modelShow,close}) => {
     const [loader, setloader] = useState(false) 
 
     const onSubmit = (data) => {
-        console.log(data ,"shivam")
 
 
         let body = {
@@ -46,7 +45,6 @@ const Create = ({modelShow,close}) => {
        
     }
 
-    console.log(errors, "Vishal")
     const handleZoneChange = (e) => {
         setData({ ...data, zone: e.target.value })
         dispatch(getStateByZone(e.target.value))
@@ -65,7 +63,6 @@ const Create = ({modelShow,close}) => {
             zoneId: data?.zone
         }
         dispatch(reportingManagerByDesignationAction(daata))
-        console.log(e.target.value, "alldesignation")
     }
 
     useEffect(() => {
@@ -78,13 +75,11 @@ const Create = ({modelShow,close}) => {
             reset()
         }
         else if (successHandle?.status == 401) {
-            console.log("iamHEre")
             ToastHandle("error", store?.ActiveEmployeeCreateReducer?.message)
         }
         else if (successHandle?.status == 405) {
             ToastHandle("error", "Something went wrong")
         }
-        console.log(successHandle, "VISHAL")
     }, [successHandle])
 
 
@@ -96,7 +91,6 @@ const Create = ({modelShow,close}) => {
             setIsChecked(false)
         }
     }
-    console.log(data.city !== "", "bis")
 
     return (
         <>
@@ -469,8 +463,6 @@ const Create = ({modelShow,close}) => {
                                                         </Form.Group>
                                                     </Col>
                                                 </Row>}
-
-
 
                                                 <Row>
                                                     <Col lg={12} className="text-center mt-3 ">

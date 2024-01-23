@@ -2,12 +2,12 @@
 import { APICore } from './apiCore';
 
 const api = new APICore();
-
+// const apiurl = "http://103.185.212.115:7010/api";
 // account
 function login(params: any): any {
-    console.log(params,"paramsssssssssssssss")
+
     let body = {
-        username:params.username,
+        username: params.username,
         password: params.password
     }
     const baseUrl = '/company/login/';
@@ -16,8 +16,8 @@ function login(params: any): any {
 function adminLogin(params: any): any {
     const baseUrl = '/user/login';
     let body = {
-        email:params.username,
-        password:params.password,
+        email: params.username,
+        password: params.password,
     }
 
     return api.create(`${baseUrl}`, body);
@@ -42,4 +42,4 @@ function forgotPasswordConfirm(params: any): any {
     return api.create(`${baseUrl}`, params);
 }
 
-export { login, logout, signup, forgotPassword, adminLogin,forgotPasswordConfirm };
+export { login, logout, signup, forgotPassword, adminLogin, forgotPasswordConfirm };

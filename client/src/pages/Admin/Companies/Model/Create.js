@@ -23,12 +23,9 @@ function Create({ modal, close }) {
   const handleCloseModal = () => {
     close()
   };
-  console.log(data, "priya")
 
   const handelconfirmpassword = (e) => {
     SetData({ ...data, confirmPassword: e.target.value })
-    console.log(e.target.value, "dsfiusdhgjf")
-    console.log(watch("password"), "xgfhghfgdhkhg");
     let password = watch("password")
 
     if (password == e.target.value) {
@@ -39,7 +36,6 @@ function Create({ modal, close }) {
     }
 
   }
-  console.log(watch("password"))
 
   const onSubmit = (value) => {
     if (value.confirmPassword === value.password) {
@@ -88,7 +84,6 @@ function Create({ modal, close }) {
       reset()
     }
     else if (errorHandle?.status == 401) {
-      console.log("iamHEre")
       ToastHandle("error", store?.companyCreateReducer?.message)
     }
     else if (errorHandle?.status == 405) {

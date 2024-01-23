@@ -44,7 +44,6 @@ require("./routes/saleExecutive.routes")(app);
 let port = process.env.PORT || 7010;
 
 app.listen(port, () => {
-    console.log(`server app listening on port ${port}`)
 });
 
 // function getLongestWorld(str) {
@@ -66,7 +65,6 @@ app.listen(port, () => {
 //     return longestwords;
 // }
 
-// console.log(getLongestWorld('software software softwar softwar softwar'))
 
 //  function checkArithmatic(arr){
 //     const arith = [];
@@ -77,7 +75,6 @@ app.listen(port, () => {
 //     return arith;
 //  }
 
-//  console.log(checkArithmatic([2,4,6,8,10,12]))
 
 // function checkGio(arr) {
 //     const gio = new Set();
@@ -88,4 +85,3 @@ app.listen(port, () => {
 //     return gio;
 // }
 
-// console.log(checkGio([3,6,12,24]))

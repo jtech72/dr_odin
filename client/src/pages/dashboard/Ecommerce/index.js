@@ -93,7 +93,6 @@ const EcommerceDashboard = (): React$Element<React$FragmentType> => {
         window.location.reload()
     }
     const handleSetDateRangeClick = () => {
-        console.log(state, "date")
         dispatch(totalMonthSaleAction({ currentMonth: 0, startDate: state[0]?.startDate, endDate: state[0]?.endDate, state: data?.state, city: data?.city }))
         dispatch(monthExpenditureAction({ currentMonth: 0, startDate: state[0]?.startDate, endDate: state[0]?.endDate, state: data?.state, city: data?.city }))
         dispatch(targetAchievedAction({ currentMonth: 0, startDate: state[0]?.startDate, endDate: state[0]?.endDate, state: data?.state, city: data?.city }))

@@ -41,7 +41,6 @@ function Update({ modal, closeModal, data }) {
 
 
   useEffect(() => {
-    console.log(data, "sdkdfn")
     setValue({ ...value, designation: data?.designation , rm: data?.rmdsgn?._id
     })
     setUpdateModalModal(modal)
@@ -66,7 +65,6 @@ function Update({ modal, closeModal, data }) {
 
     }
   }, [SuccessUpdateDesignation])
-console.log(data,"**************************")
 
   return (
     <>

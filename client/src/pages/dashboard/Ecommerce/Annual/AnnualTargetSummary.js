@@ -19,7 +19,6 @@ const AnnualTargetSummary = ({data}): React$Element<any> => {
     }
 
     useEffect(() => {
-        console.log(data,"propsss")
         const chart = chartRef.current;
 
         if (!chart) {

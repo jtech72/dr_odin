@@ -8,7 +8,6 @@ const authenticate = async(req,res,next) => {
         const bearerHeader = req.headers.authorization;
         const bearer = bearerHeader.split(" ");
         const token = bearer[1];
-        // console.log(token);
         const verifytoken = jwt.verify(token,secrecKey);
 
         const employee = await employeesModel.find({_id : verifytoken._id});

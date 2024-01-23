@@ -54,7 +54,6 @@ function Edit({ modelShow, editData, close }) {
 
 
     useEffect(() => {
-        console.log(editData.status, "dfj")
 
         setdata({ ...data, status: editData?.status })
 
@@ -78,7 +77,6 @@ function Edit({ modelShow, editData, close }) {
     }, [modelShow])
 
     useEffect(() => {
-        console.log(editData,"shiiiii")
         if (editData?.designation?.designation == "VICE PRESIDENT") {
             setVicePresident(true)
         }
@@ -129,16 +127,12 @@ function Edit({ modelShow, editData, close }) {
             reset()
         }
         else if (errorHandle == 401) {
-            console.log("iamHEre")
             ToastHandle("error", store?.ActiveEmployeeUpdateReducer?.message)
         }
         else if (errorHandle == 405) {
             ToastHandle("error", "Something went wrong")
         }
-        console.log(successHandle, "VISHAL")
     }, [successHandle, errorHandle])
-    console.log(data, "dataa")
-    console.log(editData, "editData")
 
     return (
         <>
