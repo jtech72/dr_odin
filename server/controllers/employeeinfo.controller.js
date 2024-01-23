@@ -47,7 +47,6 @@ exports.CreateEmployee = async (req, res) => {
             const Head = await designationModel.findById({ _id: req.body.designation, companyid: companyId });
             if (Head.isHead == true) {
                 try {
-                    console.log("head", data);
                     const empObj = {
                         empId: data.empId,
                         empName: data.empName,
@@ -137,7 +136,7 @@ exports.UpdateEmployee = async (req, res) => {
     const data = req.body; let rmName;
     try {
         const Head = await designationModel.findById({ _id: req.body.designation, companyid: req.body.companyId });
-        if (Head.isHead == true) {
+        // if (Head.isHead == true) {
             const empObj = {
                 empId: data.empId,
                 empName: data.empName,
@@ -157,27 +156,27 @@ exports.UpdateEmployee = async (req, res) => {
                 res.status(200).json({ status: 401, message: "Not Updated" });
             }
 
-        } else {
-            console.log(data)
-            const empObj = {
-                empId: data.empId,
-                empName: data.empName,
-                designation: data.designation,
-                doj: data.doj,
-                status: data.status,
-                mnthtarget: data.mnthtarget || 0,
-                yrlytarget: data.yrlytarget || 0,
-                empLeftDate: data.empLeftDate,
-                companyid: data?.companyId
-            }
+        // } else {
+        //     console.log(data)
+        //     const empObj = {
+        //         empId: data.empId,
+        //         empName: data.empName,
+        //         designation: data.designation,
+        //         doj: data.doj,
+        //         status: data.status,
+        //         mnthtarget: data.mnthtarget || 0,
+        //         yrlytarget: data.yrlytarget || 0,
+        //         empLeftDate: data.empLeftDate,
+        //         companyid: data?.companyId
+        //     }
 
-            const insert_resp = await empInfoModel.findByIdAndUpdate({ _id: data.employId }, empObj, { new: true });
-            if (insert_resp) {
-                res.status(200).json({ status: 200, message: "Successfully Updated", response: insert_resp });
-            } else {
-                res.status(200).json({ status: 401, message: "Not Updated" });
-            }
-        }
+        //     const insert_resp = await empInfoModel.findByIdAndUpdate({ _id: data.employId }, empObj, { new: true });
+        //     if (insert_resp) {
+        //         res.status(200).json({ status: 200, message: "Successfully Updated", response: insert_resp });
+        //     } else {
+        //         res.status(200).json({ status: 401, message: "Not Updated" });
+        //     }
+        // }
 
     } catch (err) {
         res.status(400).json({ status: 400, response: err.message });

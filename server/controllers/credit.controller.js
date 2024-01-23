@@ -9,7 +9,6 @@ const UploadCreditReport = async (req, res) => {
     const data = req.body;
     let crReport = [];
     const companyId = mongoose.Types.ObjectId(req.userid);
-    console.log(req.body, req.userid, 'req.body, req.userid');
     try {
         if (data.length > 0) {
             for (let i = 0; i < data.length; i++) {
