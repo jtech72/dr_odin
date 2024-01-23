@@ -4,7 +4,6 @@ const RateDiffModel = require("../models/rateDifference.model");
 const ChqBounceModel = require("../models/chequeBounce.model");
 const { default: mongoose } = require("mongoose");
 
-
 const date = new Date();
 
 

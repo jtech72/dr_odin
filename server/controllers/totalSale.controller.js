@@ -348,7 +348,6 @@ exports.ExpenditureOfMonth = async (req, res) => {
         let c_mnthTarget = await projectionModel.findOne({ month: currMonthID?._id, year: date.getFullYear(), companyid: companyId, trgtAmt: { $exists: true } });
         let p_mnthTarget = await projectionModel.findOne({ month: prevMonthID?._id, year: date.getFullYear(), companyid: companyId, trgtAmt: { $exists: true } });
 
-
         if (parseInt(req.query.currentMonth)) {
             let currMonth;
             // Current

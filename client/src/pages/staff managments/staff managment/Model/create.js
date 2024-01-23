@@ -464,8 +464,6 @@ const Create = ({modelShow,close}) => {
                                                     </Col>
                                                 </Row>}
 
-
-
                                                 <Row>
                                                     <Col lg={12} className="text-center mt-3 ">
                                                         {/* <Button type="submit" className="submit-btn" onClick = {handleCreate}>Create</Button> */}

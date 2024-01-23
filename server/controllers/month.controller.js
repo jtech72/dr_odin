@@ -3,21 +3,13 @@ const monthModel = require("../models/month.model");
 
 
 // ---------------- Get Months -------------------- start
-exports.GetAllMonths = async(req, res) => {
+exports.GetAllMonths = async (req, res) => {
 
     try {
         const response = await current_status();
         let months = [];
         const resp = await monthModel.find();
-        // for(var i = 0; i < 12; i++){
-        //     _id = resp[i]._id;
-        //     let month = resp[i].month.slice(0,3);
-        //     let status = resp[i].status;
-        //     let date = resp[i].date;
-        //     months.push({_id,month,status,date});
-        // }
-        console.log(resp,"resp")
-
+        // console.log(resp, "resp")
         res.status(200).json({ status: 200, response: resp });
     } catch (err) {
         res.status(400).json({ status: 400, response: err.message });
@@ -25,7 +17,7 @@ exports.GetAllMonths = async(req, res) => {
 };
 // ---------------- Get Months -------------------- end
 
-exports.insertMonth = async(req, res) => {
+exports.insertMonth = async (req, res) => {
     const data = req.body;
     try {
         const resp = await monthModel.create(data);
@@ -37,7 +29,7 @@ exports.insertMonth = async(req, res) => {
 
 var c = 1;
 // ---------------- Update Status -------------------- start
-exports.UpdateStatus = async(req, res) => {
+exports.UpdateStatus = async (req, res) => {
     const id = req.params.id;
     const data = await monthModel.findOne({ _id: id });
 
@@ -50,8 +42,8 @@ exports.UpdateStatus = async(req, res) => {
     c++;
 
     try {
-        const resp = await monthModel.findByIdAndUpdate({ _id: id }, data, {new : true});
-        res.status(200).json({ status: 201, message : "Successfully Updated", response: resp });
+        const resp = await monthModel.findByIdAndUpdate({ _id: id }, data, { new: true });
+        res.status(200).json({ status: 201, message: "Successfully Updated", response: resp });
     } catch (err) {
         res.status(400).json({ status: 401, response: err.message });
     }
@@ -60,7 +52,7 @@ exports.UpdateStatus = async(req, res) => {
 
 
 
-const current_status = async() => {
+const current_status = async () => {
     try {
         const date = new Date();
         const monthNames = ["January", "February", "March", "April", "May", "June",

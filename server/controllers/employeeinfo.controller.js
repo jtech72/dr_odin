@@ -32,9 +32,9 @@ async function empAmtUpdate(rm_id) {
 
 // ---------------------- Employee ------------------------
 exports.CreateEmployee = async (req, res) => {
-    const data = req.body; let rmName;
+    const data = req.body;
+    let rmName;
     const companyId = mongoose.Types.ObjectId(req.userid);
-
     let insert_resp;
 
     try {
@@ -43,51 +43,64 @@ exports.CreateEmployee = async (req, res) => {
         if (empID) {
             return res.status(200).json({ status: 401, message: "Employee ID Already Exists" });
         } else {
-            const dsgnCheck = await designationModel.findById({ _id: req.body.designation, companyid: companyId });
-            if (dsgnCheck.isHead == true) {
-                const empObj = {
-                    empId: data.empId,
-                    empName: data.empName,
-                    designation: data.designation,
-                    doj: data.doj,
-                    status: data.status,
-                    mnthtarget: data.mnthtarget || 0,
-                    yrlytarget: data.yrlytarget || 0,
-                    empLeftDate: data.empLeftDate,
-                    companyid: companyId
+
+            const Head = await designationModel.findById({ _id: req.body.designation, companyid: companyId });
+            if (Head.isHead == true) {
+                try {
+                    console.log("head", data);
+                    const empObj = {
+                        empId: data.empId,
+                        empName: data.empName,
+                        designation: data.designation,
+                        doj: data.doj,
+                        status: data.status,
+                        mnthtarget: data.mnthtarget || 0,
+                        yrlytarget: data.yrlytarget || 0,
+                        empLeftDate: data.empLeftDate,
+                        companyid: companyId
+                    };
+
+                    const isExist = await empInfoModel.findOne({ designation: req.body.designation });
+
+                    if (!isExist) {
+                        insert_resp = await empInfoModel.create(empObj);
+                        res.status(200).json({ status: 200, message: "Successfully Created", response: insert_resp });
+                    } else {
+                        res.status(200).json({ status: 401, message: "Already Exists" });
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                    res.status(500).json({ status: 500, message: "Internal Server Error" });
                 }
-                const isExist = await empInfoModel.findOne({ designation: req.body.designation });
-                if (!isExist) {
-                    insert_resp = await empInfoModel.create(empObj);
-                    res.status(200).json({ status: 200, message: "Successfully Created", response: insert_resp });
-                } else {
-                    res.status(200).json({ status: 401, message: "Aleady Exists" });
+            } else if (Head.isHead == false && Hget.isHead) {
+                const dsgn = await designationModel.findById({ _id: req.body.designation, companyid: companyId });
+                const Hget = await designationModel.findById({ _id: dsgn.rmdsgn }); // get rm NAME
+                if (Hget.isHead) {
+                    rmName = await empInfoModel.findById({ _id: req.body.rmId });
+                    const empObj = {
+                        empId: data.empId,
+                        empName: data.empName,
+                        designation: data.designation,
+                        rmId: data.rmId,
+                        rm: rmName.empName,
+                        zoneId: data.zoneId,
+                        doj: data.doj,
+                        status: data.status,
+                        mnthtarget: data.mnthtarget || 0,
+                        yrlytarget: data.yrlytarget || 0,
+                        empLeftDate: data.empLeftDate,
+                        companyid: companyId
+                    }
+                    //check according ZONE
+                    const isExist = await empInfoModel.findOne({ zoneId: req.body.zoneId, designation: req.body.designation, companyid: companyId });
+                    if (!isExist) {
+                        insert_resp = await empInfoModel.create(empObj);
+                        res.status(200).json({ status: 200, message: "Successfully Created", response: insert_resp });
+                    } else {
+                        res.status(200).json({ status: 401, message: "Already Exists" });
+                    }
                 }
-            } else if (dsgnCheck.isManager == true) {
-                rmName = await empInfoModel.findById({ _id: req.body.rmId });
-                const empObj = {
-                    empId: data.empId,
-                    empName: data.empName,
-                    designation: data.designation,
-                    rmId: data.rmId,
-                    rm: rmName.empName,
-                    zoneId: data.zoneId,
-                    doj: data.doj,
-                    status: data.status,
-                    mnthtarget: data.mnthtarget || 0,
-                    yrlytarget: data.yrlytarget || 0,
-                    empLeftDate: data.empLeftDate,
-                    companyid: companyId
-                }
-                //check according ZONE
-                const isExist = await empInfoModel.findOne({ zoneId: req.body.zoneId, designation: req.body.designation, companyid: companyId });
-                if (!isExist) {
-                    insert_resp = await empInfoModel.create(empObj);
-                    res.status(200).json({ status: 200, message: "Successfully Created", response: insert_resp });
-                } else {
-                    res.status(200).json({ status: 401, message: "Already Exists" });
-                }
-            } else if (dsgnCheck.isBDE == true) {
+            } else {
                 rmName = await empInfoModel.findById({ _id: req.body.rmId });
                 const empObj = {
                     empId: data.empId,
@@ -113,105 +126,17 @@ exports.CreateEmployee = async (req, res) => {
                 }
             }
         }
-
     } catch (err) {
-        res.json(400).json({ status: 400, message: err.message });
+        res.status(400).json({ status: 400, response: err.message });
     }
-
-    // try {
-    //     //check empid
-    //     const empID = await empInfoModel.findOne({ empId: req.body.empId, companyid: companyId });
-    //     if (empID) {
-    //         return res.status(200).json({ status: 401, message: "Employee ID Already Exists" });
-    //     } else {
-
-    //         const Head = await designationModel.findById({ _id: req.body.designation, companyid: companyId });
-    //         if (Head.isHead == true) {
-    //             const empObj = {
-    //                 empId: data.empId,
-    //                 empName: data.empName,
-    //                 designation: data.designation,
-    //                 doj: data.doj,
-    //                 status: data.status,
-    //                 mnthtarget: data.mnthtarget || 0,
-    //                 yrlytarget: data.yrlytarget || 0,
-    //                 empLeftDate: data.empLeftDate,
-    //                 companyid: companyId
-    //             }
-    //             const isExist = await employeeInfo.findOne({ designation: req.body.designation });
-    //             if (!isExist) {
-    //                 insert_resp = await empInfoModel.create(empObj);
-    //                 res.status(200).json({ status: 200, message: "Successfully Created", response: insert_resp });
-    //             } else {
-    //                 res.status(200).json({ status: 401, message: "Aleady Exists" });
-    //             }
-
-    //         } else if (Head.isHead == false && Hget.isHead) {
-    //             const dsgn = await designationModel.findById({ _id: req.body.designation, companyid: companyId });
-    //             const Hget = await designationModel.findById({ _id: dsgn.rmdsgn }); // get rm NAME
-    //             if (Hget.isHead) {
-    //                 rmName = await empInfoModel.findById({ _id: req.body.rmId });
-    //                 const empObj = {
-    //                     empId: data.empId,
-    //                     empName: data.empName,
-    //                     designation: data.designation,
-    //                     rmId: data.rmId,
-    //                     rm: rmName.empName,
-    //                     zoneId: data.zoneId,
-    //                     doj: data.doj,
-    //                     status: data.status,
-    //                     mnthtarget: data.mnthtarget || 0,
-    //                     yrlytarget: data.yrlytarget || 0,
-    //                     empLeftDate: data.empLeftDate,
-    //                     companyid: companyId
-    //                 }
-    //                 //check according ZONE
-    //                 const isExist = await empInfoModel.findOne({ zoneId: req.body.zoneId, designation: req.body.designation, companyid: companyId });
-    //                 if (!isExist) {
-    //                     insert_resp = await empInfoModel.create(empObj);
-    //                     res.status(200).json({ status: 200, message: "Successfully Created", response: insert_resp });
-    //                 } else {
-    //                     res.status(200).json({ status: 401, message: "Already Exists" });
-    //                 }
-    //             }
-    //         } else {
-    //             rmName = await empInfoModel.findById({ _id: req.body.rmId });
-    //             const empObj = {
-    //                 empId: data.empId,
-    //                 empName: data.empName,
-    //                 designation: data.designation,
-    //                 rmId: data.rmId,
-    //                 rm: rmName.empName,
-    //                 zoneId: data.zoneId,
-    //                 state: data.state,
-    //                 city: data.city,
-    //                 doj: data.doj,
-    //                 status: data.status,
-    //                 mnthtarget: data.mnthtarget || 0,
-    //                 yrlytarget: data.yrlytarget || 0,
-    //                 empLeftDate: data.empLeftDate,
-    //                 companyid: companyId
-    //             }
-    //             insert_resp = await empInfoModel.create(empObj);
-    //             if (insert_resp) {
-    //                 res.status(200).json({ status: 200, message: "Successfully Created", response: insert_resp });
-    //             } else {
-    //                 res.status(200).json({ status: 401, message: "Not Created" });
-    //             }
-    //         }
-    //     }
-    // } catch (err) {
-    //     res.status(400).json({ status: 400, response: err.message });
-    // }
 };
 
 
 exports.UpdateEmployee = async (req, res) => {
 
     const data = req.body; let rmName;
-
     try {
-        const Head = await designationModel.findById({ _id: req.body.designation, companyid: companyId });
+        const Head = await designationModel.findById({ _id: req.body.designation, companyid: req.body.companyId });
         if (Head.isHead == true) {
             const empObj = {
                 empId: data.empId,
@@ -222,67 +147,35 @@ exports.UpdateEmployee = async (req, res) => {
                 mnthtarget: data.mnthtarget || 0,
                 yrlytarget: data.yrlytarget || 0,
                 empLeftDate: data.empLeftDate,
-                companyid: companyId
+                companyid: data?.companyId
             }
 
-            const insert_resp = await empInfoModel.findByIdAndUpdate({ _id: data.employId });
+            const insert_resp = await empInfoModel.findByIdAndUpdate({ _id: data.employId }, empObj, { new: true });
             if (insert_resp) {
                 res.status(200).json({ status: 200, message: "Successfully Updated", response: insert_resp });
             } else {
                 res.status(200).json({ status: 401, message: "Not Updated" });
             }
 
-        } else if (Head.isHead == false && Hget.isHead) {
-            const dsgn = await designationModel.findById({ _id: req.body.designation, companyid: companyId });
-            const Hget = await designationModel.findById({ _id: dsgn.rmdsgn }); // get rm NAME
-            if (Hget.isHead) {
-                rmName = await empInfoModel.findById({ _id: req.body.rmId });
-                const empObj = {
-                    empId: data.empId,
-                    empName: data.empName,
-                    designation: data.designation,
-                    rmId: data.rmId,
-                    rm: rmName.empName,
-                    zoneId: data.zoneId,
-                    doj: data.doj,
-                    status: data.status,
-                    mnthtarget: data.mnthtarget || 0,
-                    yrlytarget: data.yrlytarget || 0,
-                    empLeftDate: data.empLeftDate,
-                    companyid: companyId
-                }
-                //check according ZONE
-                const isExist = await empInfoModel.findOne({ zoneId: req.body.zoneId, designation: req.body.designation, companyid: companyId, });
-                if (!isExist) {
-                    insert_resp = await empInfoModel.create(empObj);
-                    res.status(200).json({ status: 200, message: "Successfully Created", response: insert_resp });
-                } else {
-                    res.status(200).json({ status: 401, message: "Already Exists" });
-                }
-            }
         } else {
-            rmName = await empInfoModel.findById({ _id: req.body.rmId });
+            console.log(data)
             const empObj = {
                 empId: data.empId,
                 empName: data.empName,
                 designation: data.designation,
-                rmId: data.rmId,
-                rm: rmName.empName,
-                zoneId: data.zoneId,
-                state: data.state,
-                city: data.city,
                 doj: data.doj,
                 status: data.status,
                 mnthtarget: data.mnthtarget || 0,
                 yrlytarget: data.yrlytarget || 0,
                 empLeftDate: data.empLeftDate,
-                companyid: companyId
+                companyid: data?.companyId
             }
-            insert_resp = await empInfoModel.create(empObj);
+
+            const insert_resp = await empInfoModel.findByIdAndUpdate({ _id: data.employId }, empObj, { new: true });
             if (insert_resp) {
-                res.status(200).json({ status: 200, message: "Successfully Created", response: insert_resp });
+                res.status(200).json({ status: 200, message: "Successfully Updated", response: insert_resp });
             } else {
-                res.status(200).json({ status: 401, message: "Already Exists" });
+                res.status(200).json({ status: 401, message: "Not Updated" });
             }
         }
 
@@ -460,11 +353,61 @@ exports.GetMonths = async (req, res) => {
 };
 
 
-
-
-
-
-
+// else if (Head.isHead == false) {
+//     const dsgn = await designationModel.findById({ _id: req.body.designation, companyid: req.body.companyId });
+//     console.log(dsgn, "dsgn???");
+//     const Hget = await designationModel.findById({ _id: dsgn.rmdsgn });
+//     console.log(Hget, "Hget???");
+//     if (Hget.isHead) {
+//         rmName = await empInfoModel.findById({ _id: req.body.rmId });
+//         const empObj = {
+//             empId: data.empId,
+//             empName: data.empName,
+//             designation: data.designation,
+//             rmId: data.rmId,
+//             rm: rmName.empName,
+//             zoneId: data.zoneId,
+//             doj: data.doj,
+//             status: data.status,
+//             mnthtarget: data.mnthtarget || 0,
+//             yrlytarget: data.yrlytarget || 0,
+//             empLeftDate: data.empLeftDate,
+//             companyid: data?.companyId
+//         }
+//         //check according ZONE
+//         const isExist = await empInfoModel.findOne({ zoneId: req.body.zoneId, designation: req.body.designation, companyid: req.body.companyId, });
+//         if (!isExist) {
+//             insert_resp = await empInfoModel.create(empObj);
+//             res.status(200).json({ status: 200, message: "Successfully Created", response: insert_resp });
+//         } else {
+//             res.status(200).json({ status: 401, message: "Already Exists" });
+//         }
+//     }
+// } else {
+//     rmName = await empInfoModel.findById({ _id: req.body.rmId });
+//     const empObj = {
+//         empId: data.empId,
+//         empName: data.empName,
+//         designation: data.designation,
+//         rmId: data.rmId,
+//         rm: rmName.empName,
+//         zoneId: data.zoneId,
+//         state: data.state,
+//         city: data.city,
+//         doj: data.doj,
+//         status: data.status,
+//         mnthtarget: data.mnthtarget || 0,
+//         yrlytarget: data.yrlytarget || 0,
+//         empLeftDate: data.empLeftDate,
+//         companyid: data?.companyId
+//     }
+//     insert_resp = await empInfoModel.create(empObj);
+//     if (insert_resp) {
+//         res.status(200).json({ status: 200, message: "Successfully Created", response: insert_resp });
+//     } else {
+//         res.status(200).json({ status: 401, message: "Already Exists" });
+//     }
+// }
 
 
 

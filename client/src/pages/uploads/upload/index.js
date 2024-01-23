@@ -318,11 +318,9 @@ function UploadDashBoardPage() {
     }
 
     const handleTallyChange = (e, record) => {
-    //   setFile(e.target.files[0]);
       setTallyError('');
       if (e.target.files.length) {
           const inputFile = e.target.files[0];
-
           // Check the file extensions, if it not
           // included in the allowed extensions
           // we show the error
@@ -359,7 +357,6 @@ function UploadDashBoardPage() {
             const parsedData = csv?.data;
             let result = [];
             if(Object.keys(parsedData[0])[0]==='PASSIM TECHNOLOGIES'){
-              
             
             for (let i = 0; i < parsedData.length; i++) {
                 let arr = parsedData[i]?.['PASSIM TECHNOLOGIES'];
