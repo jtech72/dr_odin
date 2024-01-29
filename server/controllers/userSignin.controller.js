@@ -54,7 +54,7 @@ const login = async (req, res) => {
             const accesstoken = await accessToken(existingUser);
             return res.status(200).json({ status: 200, message: 'logged successfully', accessToken: accesstoken });
         } else {
-            res.status(200).json({ status: 401, message: 'User Not Found' });
+          return  res.status(200).json({ status: 401, message: 'User Not Found' });
         }
 
     } catch (error) {
@@ -245,7 +245,7 @@ const CompanyLogin = async (req, res) => {
         let isExist = await userModel.findOne({ username: username });
 
         if (!isExist) {
-            res.status(200).json({ status: 401, message: "User Not Found" });
+            return res.status(200).json({ status: 401, message: "User Not Found" });
         }
         // Match Password
         let matchPassword = await bcrypt.compare(password, isExist.password);
@@ -266,7 +266,7 @@ const CompanyLogin = async (req, res) => {
         } else if (isExist.status == false && matchPassword) {
             return res.status(200).json({ status: 401, message: 'Company is Inactive' });
         } else {
-            res.status(200).json({ status: 401, message: 'User Not Found' });
+          return  res.status(200).json({ status: 401, message: 'User Not Found' });
         }
     } catch (err) {
         res.status(400).json({ status: 400, message: err.message });

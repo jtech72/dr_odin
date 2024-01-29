@@ -37,8 +37,8 @@ exports.DeleteDesignation = async (req, res) => {
 
 exports.InsertDesignations = async (req, res) => {
     const data = req.body; let payload;
+    console.log(data,"Here Designation")
     const companyId = mongoose.Types.ObjectId(req.userid);
-
 
     try {
         const HisExist = await designationModel.findOne({ isHead: true, companyid: companyId });

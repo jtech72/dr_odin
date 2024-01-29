@@ -25,7 +25,6 @@ function Create({ modal, closeModal }) {
     setValue({ ...value, rm: e.target.value })
   }
   const handelCheckbox = (e) => {
-
     if (e.target.checked == true) {
       setValue({ ...value, check: true })
     }
@@ -34,11 +33,18 @@ function Create({ modal, closeModal }) {
     }
   }
   const handleCreate = () => {
+    let isManager = false;
+    value?.designation === "Manager" ? isManager = true : isManager = false;
+    let isBDE = false;
+    value?.designation === "BDE" ? isBDE = true : isBDE = false;
     if (value !== '') {
       let body = {
         designation: value?.designation,
         rmdsgn: value?.rm,
-        isHead: value?.check
+        isHead: value?.check,
+        isManager: isManager,
+        isBDE: isBDE
+
       }
       dispatch(insertDesignation(body))
     }
@@ -46,7 +52,6 @@ function Create({ modal, closeModal }) {
       ToastHandle("error", " Designation is required")
     }
   }
-
 
   useEffect(() => {
     setDesignationModal(modal)
