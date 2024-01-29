@@ -1,5 +1,5 @@
 const config = {
-    API_URL: "http://localhost:7010/api/",
+    API_URL: "http://103.185.212.115:7010/api/",
    
 };
 

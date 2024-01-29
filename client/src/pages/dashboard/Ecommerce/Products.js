@@ -43,21 +43,21 @@ const Products = (): React$Element<any> => {
                 <Table width="800px" hover responsive className="mb-0 table_hoveWork" size="sm">
                 <thead className='bg-primary'>
                     <th width="100px">
-                        <h5 className='text-light text-start'>#</h5>
+                        <h5 className='text-white text-start'>#</h5>
                     </th>
                     <th width="100px">
-                        <h5 className='text-light text-start'>Name</h5>
+                        <h5 className='text-white text-start'>Name</h5>
                     </th>
                     <th width="100px">
 
-                        <h5 className='text-light text-start'>TOT</h5>
+                        <h5 className='text-white text-start'>TOT</h5>
 
                     </th>
                     <th width="100px">
-                        <h5 className='text-light text-start'>TGT</h5>
+                        <h5 className='text-white text-start'>TGT</h5>
                     </th>
                     <th width="100px">
-                        <h5 className='text-light text-start'>Achievement</h5>
+                        <h5 className='text-white text-start'>Achievement</h5>
                     </th>
                     
                     <th width="100px">
@@ -70,7 +70,7 @@ const Products = (): React$Element<any> => {
             </Tooltip>
           }
         >
-          <h5 className='text-light text-start'> TE</h5>
+          <h5 className='text-white text-start'> TE</h5>
         </OverlayTrigger>
         </th>
         <th width="100px">
@@ -83,7 +83,7 @@ const Products = (): React$Element<any> => {
             </Tooltip>
           }
         >
-          <h5 className='text-light text-start'> TA(%)</h5>
+          <h5 className='text-white text-start'> TA(%)</h5>
         </OverlayTrigger>
         </th>
                 </thead>

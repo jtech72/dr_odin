@@ -64,6 +64,7 @@ function UploadDashBoardPage() {
     }, [Data]);
 
     const handleButtonChange = (item) => {
+        console.log(item ,"pppppppppppppppppppppppppppppppppppppppp")
         setChangeItem(item);
         // setTableData(tableData.map((ele,ind)=>item?._id===ele?._id?{...ele,status:!ele.status}:{...ele,status:false}))
         setShow(true);
@@ -183,6 +184,7 @@ function UploadDashBoardPage() {
             if(finalResponse.length){
 
                 dispatch(UploadTellyReportPOST(finalResponse));
+                console.log(finalResponse,"nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn")
             }
             else{
                 ToastHandle("error","Please choose correct file with selected date")
@@ -770,7 +772,7 @@ else if(successHandle?.status==401){
                             <CloseButton onClick={handleClose} />
                         </Col>
                         <Col className="ms-3 mt-2" lg={12}>
-                        Are you sure you want to activate this month?
+                        Are you sure you want {changeItem?.status === true ? "Devaticated" : "Activated"} to  this month?
                         </Col>
                     </Row>
                     <Row>

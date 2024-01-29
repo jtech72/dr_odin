@@ -36,7 +36,7 @@
 
 .employee{
     background-color: #313a46 !important;
-    color: white;
+    color: white !important;
     box-shadow: 0px 2px 6px 0px #313a46 !important;
 }
 

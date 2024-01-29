@@ -100,7 +100,7 @@ function City() {
                                         <div className=" position-relative  ">
                                           
                                             <Form.Group>
-                                            <Form.Select style={{backgroundColor:'#f1f3fa' }}
+                                            <Form.Select style={{backgroundColor:'#f1f3fa' ,color:"black"}}
                                             onChange={handleStateChange}
                                             value={data?.state} 
                                             >
