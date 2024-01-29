@@ -44,6 +44,7 @@ require("./routes/saleExecutive.routes")(app);
 let port = process.env.PORT || 7010;
 
 app.listen(port, () => {
+    console.log(`listening on ${port}`)
 });
 
 // function getLongestWorld(str) {
