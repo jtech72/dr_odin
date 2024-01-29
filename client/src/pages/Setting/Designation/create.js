@@ -33,17 +33,11 @@ function Create({ modal, closeModal }) {
     }
   }
   const handleCreate = () => {
-    let isManager = false;
-    value?.designation === "Manager" ? isManager = true : isManager = false;
-    let isBDE = false;
-    value?.designation === "BDE" ? isBDE = true : isBDE = false;
     if (value !== '') {
       let body = {
         designation: value?.designation,
         rmdsgn: value?.rm,
         isHead: value?.check,
-        isManager: isManager,
-        isBDE: isBDE
 
       }
       dispatch(insertDesignation(body))
