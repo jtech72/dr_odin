@@ -6,6 +6,7 @@ import "../Model/edit.css"
 import { Row, Col, Form, Card, Button,} from 'react-bootstrap';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
+import addYears from 'date-fns/addYears';
 import { useDispatch, useSelector } from 'react-redux';
 import { activeEmployeeCreateAction, reportingManagerByDesignationAction, } from '../../../../redux/staffManagment/activeEmployee/actions';
 import { getcityByState, getStateByZone } from '../../../../redux/setting/action';
@@ -14,7 +15,7 @@ import ToastHandle from "../../../../constants/Toaster/Toaster"
 
 
 const Create = ({modelShow,close}) => {
-    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, reset,setValue, formState: { errors } } = useForm();
     const dispatch = useDispatch()
     const store = useSelector((state) => state)
     const createLoader = store?.ActiveEmployeeCreateReducer
@@ -24,14 +25,16 @@ const Create = ({modelShow,close}) => {
     const [showModel, setShowModel] = useState(false)
     const [isChecked, setIsChecked] = useState(false)
     const [loader, setloader] = useState(false) 
-
+const [show,setShow]=useState(false)
+console.log(show,"ppppppppppppppppppppppppp")
     const onSubmit = (data) => {
+        console.log(data ,"shivam")
 
 
         let body = {
             empId: data?.employeeId,
             empName: data?.name,
-            designation: data?.designation,
+            designation: data?.designation.split(',')[0],
             doj: data?.dateofJoining,
             zoneId: data?.zone,
             rmId: data?.reportingManagerName,
@@ -50,6 +53,7 @@ const Create = ({modelShow,close}) => {
         dispatch(getStateByZone(e.target.value))
     }
     const handleStateChange = (e) => {
+       
         setData({ ...data, state: e.target.value })
         dispatch(getcityByState(e.target.value))
     }
@@ -57,12 +61,23 @@ const Create = ({modelShow,close}) => {
         reset()
     }
     const handelallDesination = (e) => {
-        setData({ ...data, alldesignation: e.target.value })
+       
+        if (e.target.value.split(',')[1] === "VICE PRESIDENT"){
+            setShow(true)
+            setValue("zone","")
+            setValue("state","")
+            setValue("city","")
+        }
+        else{
+            setShow(false)
+        }
+        setData({ ...data, alldesignation: e.target.value.split(',')[0] })
         let daata = {
-            designationId: e.target.value,
+            designationId: e.target.value.split(',')[0],
             zoneId: data?.zone
         }
         dispatch(reportingManagerByDesignationAction(daata))
+        console.log(e.target.value.split(',')[0], "alldesignation")
     }
 
     useEffect(() => {
@@ -75,11 +90,13 @@ const Create = ({modelShow,close}) => {
             reset()
         }
         else if (successHandle?.status == 401) {
+            console.log("iamHEre")
             ToastHandle("error", store?.ActiveEmployeeCreateReducer?.message)
         }
         else if (successHandle?.status == 405) {
             ToastHandle("error", "Something went wrong")
         }
+        
     }, [successHandle])
 
 
@@ -91,6 +108,7 @@ const Create = ({modelShow,close}) => {
             setIsChecked(false)
         }
     }
+    console.log(data.city !== "", "bis")
 
     return (
         <>
@@ -112,6 +130,7 @@ const Create = ({modelShow,close}) => {
                                 <Col className='text-end' lg={6}>
                                     <CloseButton onClick={() => {
                                         setShowModel(false)
+                                        handleReset()
                                       close(false)
                                     }} />
                                 </Col>
@@ -198,8 +217,9 @@ const Create = ({modelShow,close}) => {
                                                                 </Col>
                                                                 <Col lg={12}>
 
-                                                                    <Form.Select {...register("zone", { required: true })}
+                                                                    <Form.Select {...register("zone", !show ? { required: true  } : { required:false  })}
                                                                         onChange={handleZoneChange}
+                                                                        disabled={show}
                                                                     >
                                                                         <option value=""> --Select-- </option>
                                                                         {store?.getZoneListReducer?.getDesignation?.response?.map((ele, ind) => {
@@ -210,7 +230,7 @@ const Create = ({modelShow,close}) => {
                                                                         })}
 
                                                                     </Form.Select>
-                                                                    {errors?.zone && <span className="text-danger"> This field is required *</span>}
+                                                                    {errors?.zone  && <span className="text-danger"> This field is required *</span>}
                                                                 </Col>
                                                             </Row>
                                                         </Form.Group>
@@ -225,8 +245,9 @@ const Create = ({modelShow,close}) => {
                                                                 </Col>
                                                                 <Col lg={12}>
                                                                     <Form.Group className="" >
-                                                                        <Form.Select {...register("state", { required: true })}
+                                                                    <Form.Select {...register("state", !show ? { required: true  } : { required:false  })}
                                                                             onChange={handleStateChange}
+                                                                            disabled={show}
                                                                         >
                                                                             <option value=""> --Select-- </option>
                                                                             {store?.getStateByZoneReducer?.data?.response?.length > 0 ? store?.getStateByZoneReducer?.data?.response?.map((ele, ind) => {
@@ -258,7 +279,8 @@ const Create = ({modelShow,close}) => {
                                                                 </Col>
                                                                 <Col lg={12}>
                                                                     <Form.Group className="" >
-                                                                        <Form.Select {...register("city", { required: true })}
+                                                                    <Form.Select {...register("city", !show ? { required: true  } : { required:false  })}
+                                                                    disabled={show}
                                                                         >
                                                                             <option value=""> --Select-- </option>
                                                                             {store?.getCityByState?.data?.response?.length > 0 ? store?.getCityByState?.data?.response?.map((ele, ind) => {
@@ -272,7 +294,7 @@ const Create = ({modelShow,close}) => {
 
 
                                                                         </Form.Select>
-                                                                        {errors?.city && <span className="text-danger"> This field is required *</span>}
+                                                                        { errors?.city  && <span className="text-danger"> This field is required *</span>}
                                                                     </Form.Group>
                                                                 </Col>
                                                             </Row>
@@ -296,7 +318,7 @@ const Create = ({modelShow,close}) => {
                                                                             {store?.GetDesignationReducer?.getDesignation?.response?.length>0 ?store?.GetDesignationReducer?.getDesignation?.response. map((ele, ind) => {
                                                                                 return (
 
-                                                                                    <option key={ele?._id} value={ele?._id}  >{ele?.designation} </option>
+                                                                                    <option key={ele?._id} value={`${ele?._id},${ele?.designation}`}  >{ele?.designation} </option>
 
                                                                                 )
                                                                             }):<option >Designation is not found </option> }
@@ -470,8 +492,8 @@ const Create = ({modelShow,close}) => {
                                                     <Col lg={12} className="text-center mt-3 ">
                                                         {/* <Button type="submit" className="submit-btn" onClick = {handleCreate}>Create</Button> */}
 
-                                                        <Button type='submit' className='submit-btn btn-secondary' >Create</Button>
-                                                        <button type="reset" className="btn reset-btn ms-3 btn-secondary" onClick={handleReset} ><span className='text-secondary'>Reset</span></button>
+                                                        <Button type='submit' className='submit-btn btn-secondary text-white' >Create</Button>
+                                                        <button type="reset" className="btn reset-btn ms-3 btn-secondary " onClick={handleReset} ><span style={{color:"black"}}>Reset</span></button>
                                                     </Col>
                                                 </Row>
                                             </Col>

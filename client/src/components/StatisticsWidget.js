@@ -45,8 +45,8 @@ const StatisticsWidget = (props: StatisticsWidgetProps): React$Element<any> => {
                     </div>
                    
                 )}
-                <div className='col-12'>
-                <h3 className={classNames('mt-4', 'mb-4','text-nowrap', props.textClass ? props.textClass : null)}>
+                <div className='col-12' >
+                <h3 className={classNames('mt-4', 'mb-4','text-nowrap', props.textClass ? props.textClass : null)} style={{    fontSize: "22px"}}>
                {props.stats}  </h3>
                 </div>
                

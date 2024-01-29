@@ -193,7 +193,7 @@ function UploadStaffManagmentPage() {
                                                                         onClick={() => {
                                                                             setShowCreateModel(true);
                                                                         }}>
-                                                                        <i className="uil-plus"></i>
+                                                                        <i className="uil-plus text-white"></i>
                                                                     </Button>
 
                                                                 )}

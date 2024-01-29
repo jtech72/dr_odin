@@ -506,9 +506,9 @@ function Edit({ modelShow, editData, close }) {
                                                 </Row>
                                                 <Row>
                                                     <Col lg={12} className="text-center  mt-4">
-                                                        <button type="submit" className="btn submit-btn" ><span className='text-light'>Update</span></button>
+                                                        <button type="submit" className="btn submit-btn text-white" ><span className=''>Update</span></button>
 
-                                                        <button type="reset" className="btn reset-btn ms-3 btn-secondary" onClick={handleReset} ><span className='text-secondary'>Reset</span></button>
+                                                        <button type="reset" className="btn reset-btn ms-3 btn-secondary" onClick={handleReset} ><span className=' text-black'>Reset</span></button>
                                                     </Col>
                                                 </Row>
                                             </Col>

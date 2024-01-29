@@ -4,6 +4,7 @@
 
 .submit-btn.btn-secondary{
 background-color: #313a46;
+color:white !important
 }
 
 .submit-btn.btn-secondary:hover{
@@ -15,6 +16,7 @@ background-color: #313a46;
     background-color: #313a46;
     box-shadow: 0px 2px 6px 0px #313a46;
     border-color: #313a46;
+   
 }
 
 .reset-btn{
