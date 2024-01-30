@@ -11,7 +11,7 @@ mongoose.set('strictQuery', false);
 console.log(process.env.MONGO_URI,"process.env.MONGO_URI")
 mongoose.connect(process.env.MONGO_URI, connectionParams)
     .then(() => {
-        // initial();
+       console.log("Connect")
     })
     .catch((err) => {
         console.error(`Error connecting to the database. n${err}`);
