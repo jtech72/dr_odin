@@ -15,39 +15,39 @@ var currMonth = monthNames[date.getMonth()];
 
 
 exports.SaleExecutiveReport = async (req, res) => {
-    const companyId = req.userid;
+     const companyId = req.userid;
     const currMonthId = await monthModel.findOne({ month: currMonth });
 
     try {
         const employeeInfo = await employeeInfoModel.find({ status: true, companyid: companyId }, { "empName": 1, "mnthtarget": 1, "state": 1, "totalAmount": 1, "achivement": 1, "expense": 1 }).populate("state");
-
         if (parseInt(req.query.currentMonth)) {
+ 
             const arr = [];
             for (var i = 0; i < employeeInfo.length; i++) {
 
                 var empWithSale = await AchivementModel.findOne({ employee: employeeInfo[i].empName, monthId: currMonthId._id, companyid: companyId }, { "totalAmount": 1, "employee": 1 });
-
-                if (empWithSale) {
+                 if (empWithSale) {
                     const totalAmount = empWithSale.totalAmount;
                     employeeInfo[i].totalAmount = totalAmount;
                     employeeInfo[i].achivement = Math.round((empWithSale.totalAmount / employeeInfo[i].mnthtarget) * 100);
                 }
-                //--------------
-                var empExpense = await SalaryExpensesModel.findOne({ name: employeeInfo[i].empName, monthId: currMonthId._id, companyid: companyId });
+         var empExpense = await SalaryExpensesModel.findOne({ name: employeeInfo[i].empName, monthId: currMonthId._id, companyid: companyId });
                 if (empExpense) {
-                    const expenses = empExpense.expenses;
+                     const expenses = empExpense.expenses;
                     employeeInfo[i].expenses = expenses;
                 }
+         
             }
-
+ 
             for (var j = 0; j < employeeInfo.length; j++) {
+ 
                 if (employeeInfo[j].achivement && employeeInfo[j].expenses) {
+
                     arr.push(employeeInfo[j]);
                 }
             }
 
-
-            return res.status(200).json({ status: 200, message: "Employee Name,State,Target,Achivement,Total Achivement, Expenditure", response: arr });
+             return res.status(200).json({ status: 200, message: "Employee Name,State,Target,Achivement,Total Achivement, Expenditure", response: arr });
 
         }
 
