@@ -37,7 +37,7 @@ body[data-layout-color="dark"] {
         color: #{map-get($dark-grays, "100")};
     }
     .btn-secondary {
-        background-color: #{map-get($dark-grays, "600")};
+        // background-color: #{map-get($dark-grays, "600")};
         border-color: #{map-get($dark-grays, "600")};
         color: #{map-get($dark-grays, "300")};
     }
@@ -74,5 +74,63 @@ body[data-layout-color="dark"] {
                 color: #{map-get($dark-grays, "300")} !important;
                 background-color: #{map-get($dark-grays, "600")};
         }
+    }
+    .css-r93niq-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+        /* color: white; */
+        border: 1px solid rgba(25, 118, 210, 0.5);
+        background-color: rgba(25, 118, 210, 0.12);
+        color: white !important;
+    }
+    .css-r93niq-MuiButtonBase-root-MuiPaginationItem-root {
+       
+        display: inline-flex;
+      
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        position: relative;
+       
+        -webkit-tap-highlight-color: transparent;
+        background-color: transparent;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        vertical-align: middle;
+        
+        -webkit-text-decoration: none;
+        text-decoration: none;
+        color: inherit;
+        font-family: "Roboto","Helvetica","Arial",sans-serif;
+        font-weight: 400;
+        font-size: 0.875rem;
+        line-height: 1.43;
+        letter-spacing: 0.01071em;
+        border-radius: 4px;
+        text-align: center;
+        box-sizing: border-box;
+        min-width: 32px;
+        height: 32px;
+        padding: 0 6px;
+        margin: 0 3px;
+        transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        border: 1px solid;
+    }
+    .css-1v2lvtn-MuiPaginationItem-root {
+        font-family: "Roboto","Helvetica","Arial",sans-serif;
+        font-weight: 400;
+        font-size: 0.875rem;
+        line-height: 1.43;
+        letter-spacing: 0.01071em;
+        border-radius: 16px;
+        text-align: center;
+        box-sizing: border-box;
+        min-width: 32px;
+        padding: 0 6px;
+        margin: 0 3px;
+        color: white; 
+        height: auto;
     }
 }
