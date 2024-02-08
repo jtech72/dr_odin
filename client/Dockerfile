@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:20
 WORKDIR /app
 RUN echo "Copying files...."
 COPY . .
