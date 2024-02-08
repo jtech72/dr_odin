@@ -3,9 +3,9 @@ const dotenv = require('dotenv').config();
 
 
 const accessToken = (userId) => {
-    
+
     return new Promise((resolve, reject) => {
-       
+
         const payload = {
             aud: userId
         };
@@ -15,7 +15,7 @@ const accessToken = (userId) => {
             expiresIn: "1d",
         };
 
-        const secret = process.env.SECRET_ACCESS_TOKEN;
+        const secret = `${process.env.SECRET_ACCESS_TOKEN}`;
         jwt.sign(payload, secret, options, (err, token) => {
             if (err) reject(err)
             resolve(token)
@@ -24,13 +24,13 @@ const accessToken = (userId) => {
 }
 
 
-const verifyToken = async(req, res, next) => {
-    
+const verifyToken = async (req, res, next) => {
+
     try {
         let token = req.headers.authorization;
         if (token) {
             token = token.split(" ")[1];
-            let user = jwt.verify(token, process.env.SECRET_ACCESS_TOKEN);
+            let user = jwt.verify(token, `${process.env.SECRET_ACCESS_TOKEN}`);
             req.userid = user.aud._id;
         } else {
             res.status(400).json({ message: "Unauthorized User" });
@@ -48,7 +48,7 @@ const verifyToken = async(req, res, next) => {
     //     const bearerToken = headerTokn.split(' ');
     //     const token = bearerToken[1];
 
-    //     jwt.verify(token, process.env.SECRET_ACCESS_TOKEN, (err, user) => {
+    //     jwt.verify(token, `${process.env.SECRET_ACCESS_TOKEN}`, (err, user) => {
     //         if (err) throw new Error(err.message)
     //         req.user = user.aud;
     //     })
@@ -60,7 +60,7 @@ const verifyToken = async(req, res, next) => {
 }
 
 
-const verifyAdmin = async(req, res, next) => {
+const verifyAdmin = async (req, res, next) => {
     try {
         verifyToken(req, res, () => {
             if (req.user.isAdmin === true) {
