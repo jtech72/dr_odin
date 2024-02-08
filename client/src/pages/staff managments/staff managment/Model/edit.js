@@ -419,7 +419,7 @@ function Edit({ modelShow, editData, close }) {
                                                             <Row className="d-flex align-items-center">
                                                                 <Col lg={12}>
                                                                     <Form.Label className=''  >
-                                                                        Monthly Target <span className="text-danger">*</span> :
+                                                                        Monthly Target  :
                                                                     </Form.Label>
                                                                 </Col>
                                                                 <Col lg={12}>
@@ -440,7 +440,7 @@ function Edit({ modelShow, editData, close }) {
                                                             <Row className="d-flex align-items-center">
                                                                 <Col lg={12}>
                                                                     <Form.Label>
-                                                                        Year Target <span className="text-danger">*</span> :
+                                                                        Year Target  :
                                                                     </Form.Label>
                                                                 </Col>
                                                                 <Col lg={12}>
@@ -461,7 +461,7 @@ function Edit({ modelShow, editData, close }) {
                                                             <Row className="d-flex align-items-center">
                                                                 <Col lg={12}>
                                                                     <Form.Label className=''>
-                                                                        Status <span className="text-danger">*</span> :
+                                                                        Status :
                                                                     </Form.Label>
                                                                 </Col>
                                                                 <Col lg={12}>
@@ -490,11 +490,11 @@ function Edit({ modelShow, editData, close }) {
                                                             <Row className="d-flex align-items-center">
                                                                 <Col lg={12}>
                                                                     <Form.Label className=''>
-                                                                        Left Date <span className="text-danger">*</span> :
+                                                                        Left Date  :
                                                                     </Form.Label>
                                                                 </Col>
                                                                 <Col lg={12}>
-                                                                    <Form.Control  {...register("leftDate", { required: true })} disabled={vicePresident}
+                                                                    <Form.Control  {...register("leftDate", { required: false })} disabled={vicePresident}
                                                                         type='date'
                                                                     />
                                                                     {errors?.leftDate && <span className="text-danger"> This field is required *</span>}
