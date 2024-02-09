@@ -212,7 +212,7 @@ console.log(show,"ppppppppppppppppppppppppp")
                                                             <Row className="d-flex align-items-center">
                                                                 <Col lg={12}>
                                                                     <Form.Label className=''>
-                                                                        Zone  :
+                                                                        Zone  <span className="text-danger">*</span> :
                                                                     </Form.Label>
                                                                 </Col>
                                                                 <Col lg={12}>
@@ -240,7 +240,7 @@ console.log(show,"ppppppppppppppppppppppppp")
                                                             <Row className="d-flex align-items-center">
                                                                 <Col lg={12}>
                                                                     <Form.Label className=''>
-                                                                        State :
+                                                                        State <span className="text-danger">*</span> :
                                                                     </Form.Label>
                                                                 </Col>
                                                                 <Col lg={12}>
@@ -274,7 +274,7 @@ console.log(show,"ppppppppppppppppppppppppp")
                                                             <Row className="d-flex align-items-center">
                                                                 <Col lg={12}>
                                                                     <Form.Label className=''>
-                                                                        City  :
+                                                                        City  <span className="text-danger">*</span> :
                                                                     </Form.Label>
                                                                 </Col>
                                                                 <Col lg={12}>
@@ -342,12 +342,12 @@ console.log(show,"ppppppppppppppppppppppppp")
                                                             <Row className="d-flex align-items-center">
                                                                 <Col lg={12}>
                                                                     <Form.Label className=''>
-                                                                        Reporting Manager Name :
+                                                                        Reporting Manager Name <span className="text-danger">*</span> :
                                                                     </Form.Label>
                                                                 </Col>
                                                                 <Col lg={12}>
                                                                     <Form.Group className=""  >
-                                                                        <Form.Select {...register("reportingManagerName", { required: false})}
+                                                                        <Form.Select {...register("reportingManagerName", { required: true})}
                                                                         >
                                                                             <option value=""> --Select-- </option>
                                                                             {store?.ReportingManagerByDesignationReducer?.response?.length >0 ? store?.ReportingManagerByDesignationReducer?.response?. map((ele, ind) => {
@@ -393,7 +393,7 @@ console.log(show,"ppppppppppppppppppppppppp")
                                                             <Row className="d-flex align-items-center">
                                                                 <Col lg={12}>
                                                                     <Form.Label className=''>
-                                                                        Status <span className="text-danger">*</span> :
+                                                                        Status  :
                                                                     </Form.Label>
                                                                 </Col>
                                                                 <Col lg={12}>
@@ -451,7 +451,7 @@ console.log(show,"ppppppppppppppppppppppppp")
                                                             <Row className="d-flex align-items-center">
                                                                 <Col lg={12}>
                                                                     <Form.Label className=''  >
-                                                                        Monthly Target <span className="text-danger">*</span> :
+                                                                        Monthly Target  :
                                                                     </Form.Label>
                                                                 </Col>
                                                                 <Col lg={12}>
@@ -471,7 +471,7 @@ console.log(show,"ppppppppppppppppppppppppp")
                                                             <Row className="d-flex align-items-center">
                                                                 <Col lg={12}>
                                                                     <Form.Label>
-                                                                        Yearly Target <span className="text-danger">*</span> :
+                                                                        Yearly Target  :
                                                                     </Form.Label>
                                                                 </Col>
                                                                 <Col lg={12}>
