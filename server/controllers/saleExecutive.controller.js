@@ -17,8 +17,7 @@ var currMonth = monthNames[date.getMonth()];
 exports.SaleExecutiveReport = async (req, res) => {
      const companyId = req.userid;
     const currMonthId = await monthModel.findOne({ month: currMonth });
-
-    try {
+     try {
         const employeeInfo = await employeeInfoModel.find({ status: true, companyid: companyId }, { "empName": 1, "mnthtarget": 1, "state": 1, "totalAmount": 1, "achivement": 1, "expense": 1 }).populate("state");
         if (parseInt(req.query.currentMonth)) {
  
@@ -26,7 +25,7 @@ exports.SaleExecutiveReport = async (req, res) => {
             for (var i = 0; i < employeeInfo.length; i++) {
 
                 var empWithSale = await AchivementModel.findOne({ employee: employeeInfo[i].empName, monthId: currMonthId._id, companyid: companyId }, { "totalAmount": 1, "employee": 1 });
-                 if (empWithSale) {
+                  if (empWithSale) {
                     const totalAmount = empWithSale.totalAmount;
                     employeeInfo[i].totalAmount = totalAmount;
                     employeeInfo[i].achivement = Math.round((empWithSale.totalAmount / employeeInfo[i].mnthtarget) * 100);
@@ -40,8 +39,7 @@ exports.SaleExecutiveReport = async (req, res) => {
             }
  
             for (var j = 0; j < employeeInfo.length; j++) {
- 
-                if (employeeInfo[j].achivement && employeeInfo[j].expenses) {
+                 if (employeeInfo[j].achivement && employeeInfo[j].expenses) {
 
                     arr.push(employeeInfo[j]);
                 }
@@ -201,7 +199,7 @@ exports.GetNorthZoneManager = async (req, res) => {
         const dsgn = await designationModel.findOne({ designation: "Zone Head" });
         const zone = await zoneModel.findOne({ zone: "North" });
 
-        const manager = await designationModel.findOne({ designation: "Manager" });
+        const manager = await designationModel.findOne({ designation: "Dept. General Manager" });
         // Manager's Details
         const mdetail = await zoneModel.aggregate([{ $match: { zone: "North" } }, {
             $lookup: {
@@ -218,7 +216,7 @@ exports.GetNorthZoneManager = async (req, res) => {
             $lookup: {
                 from: "salary_expenses", localField: "employee.empName", foreignField: "name", as: "slry", pipeline: [{
                     "$match": {
-                        "$expr": { $and: [{ $eq: ["$monthId", currMonthId._id] }, { $eq: ["$designation", "Manager"] }] }
+                        "$expr": { $and: [{ $eq: ["$monthId", currMonthId._id] }, { $eq: ["$designation", "Dept. General Manager"] }] }
                     }
                 }]
             }
@@ -235,7 +233,7 @@ exports.GetNorthZoneManager = async (req, res) => {
         }, { $unwind: "$tally" },
         {
             $group: {
-                _id: "$employee.empName", name: { $first: "$employee.empName" }, dsgn: { $first: "Manager" }, ytrgt: { $first: "$employee.yrlytarget" },
+                _id: "$employee.empName", name: { $first: "$employee.empName" }, dsgn: { $first: "Dept. General Manager" }, ytrgt: { $first: "$employee.yrlytarget" },
                 slry: { $first: "$slry.ctc" }, expns: { $first: "$slry.expenses" }, ytdAch: { $first: "$tally.totalAmount" }, color: { $first: "#889293" }, mid: { $first: "$employee._id" }
             }
         }, { $sort: { "ytdAch": -1 } },
@@ -272,7 +270,7 @@ exports.GetNorthZoneManager = async (req, res) => {
         }, { $unwind: "$tally" },
         {
             $group: {
-                _id: "$employee.empName", name: { $first: "$employee.empName" }, dsgn: { $first: "Manager" }, ytrgt: { $first: "$employee.yrlytarget" },
+                _id: "$employee.empName", name: { $first: "$employee.empName" }, dsgn: { $first: "Dept. General Manager" }, ytrgt: { $first: "$employee.yrlytarget" },
                 slry: { $first: "$slry.ctc" }, expns: { $first: "$slry.expenses" }, ytdAch: { $sum: "$tally.totalAmount" }, color: { $first: "#889293" }, mid: { $first: "$employee._id" }
             }
         }, { $sort: { "ytdAch": -1 } },
@@ -499,7 +497,7 @@ exports.GetSouthZoneManager = async (req, res) => {
     try {
 
         const currMonthId = await monthModel.findOne({ month: currMonth });
-        const manager = await designationModel.findOne({ designation: "Manager" });
+        const manager = await designationModel.findOne({ designation: "Dept. General Manager" });
 
         //----------------- Head Of Zone ------------------
         const dsgn = await designationModel.findOne({ designation: "Zone Head" });
@@ -548,7 +546,7 @@ exports.GetSouthZoneManager = async (req, res) => {
             $lookup: {
                 from: "salary_expenses", localField: "employee.empName", foreignField: "name", as: "slry", pipeline: [{
                     "$match": {
-                        "$expr": { $and: [{ $eq: ["$monthId", currMonthId._id] }, { $eq: ["$designation", "Manager"] }] }
+                        "$expr": { $and: [{ $eq: ["$monthId", currMonthId._id] }, { $eq: ["$designation", "Dept. General Manager"] }] }
                     }
                 }]
             }
@@ -563,7 +561,7 @@ exports.GetSouthZoneManager = async (req, res) => {
         }, { $unwind: "$tally" },
         {
             $group: {
-                _id: "$employee.empName", name: { $first: "$employee.empName" }, dsgn: { $first: "Manager" }, ytrgt: { $first: "$employee.yrlytarget" },
+                _id: "$employee.empName", name: { $first: "$employee.empName" }, dsgn: { $first: "Dept. General Manager" }, ytrgt: { $first: "$employee.yrlytarget" },
                 slry: { $first: "$slry.ctc" }, expns: { $first: "$slry.expenses" }, ytdAch: { $sum: "$tally.totalAmount" }, color: { $first: "#889293" }, mid: { $first: "$employee._id" }
             }
         }, { $sort: { "ytdAch": -1 } },
@@ -601,7 +599,7 @@ exports.GetSouthZoneManager = async (req, res) => {
         }, { $unwind: "$tally" },
         {
             $group: {
-                _id: "$employee.empName", name: { $first: "$employee.empName" }, dsgn: { $first: "Manager" }, ytrgt: { $first: "$employee.yrlytarget" },
+                _id: "$employee.empName", name: { $first: "$employee.empName" }, dsgn: { $first: "Dept. General Manager" }, ytrgt: { $first: "$employee.yrlytarget" },
                 slry: { $first: "$slry.ctc" }, expns: { $first: "$slry.expenses" }, ytdAch: { $sum: "$tally.totalAmount" }, color: { $first: "#889293" }, mid: { $first: "$employee._id" }
             }
         }, { $sort: { "ytdAch": -1 } },
@@ -725,9 +723,8 @@ exports.GetSouthZoneManager = async (req, res) => {
 
 exports.GetEastZoneManager = async (req, res) => {
     try {
-
-        const currMonthId = await monthModel.findOne({ month: currMonth });
-        const manager = await designationModel.findOne({ designation: "Manager" });
+         const currMonthId = await monthModel.findOne({ month: currMonth });
+        const manager = await designationModel.findOne({ designation: "Dept. General Manager" });
 
         //----------------- Head Of Zone ------------------
         const dsgn = await designationModel.findOne({ designation: "Zone Head" });
@@ -760,8 +757,7 @@ exports.GetEastZoneManager = async (req, res) => {
         // ]);
 
         //--------------------------------------------------------------------------------
-
-        const mdetail = await zoneModel.aggregate([{ $match: { zone: "East" } }, {
+         const mdetail = await zoneModel.aggregate([{ $match: { zone: "East" } }, {
             $lookup: {
                 from: "employeeinfos", localField: "_id", foreignField: "zoneId", as: "employee", pipeline: [{
                     "$match": {
@@ -774,9 +770,10 @@ exports.GetEastZoneManager = async (req, res) => {
         { $project: { "employee": 1 } },
         {
             $lookup: {
-                from: "salary_expenses", localField: "employee.empName", foreignField: "name", as: "slry", pipeline: [{
+                from: "salary_expenses", localField: "employee.empName", foreignField: "name", as: "slry",
+                 pipeline: [{
                     "$match": {
-                        "$expr": { $and: [{ $eq: ["$monthId", currMonthId._id] }, { $eq: ["$designation", "Manager"] }] }
+                        "$expr": { $and: [{ $eq: ["$monthId", currMonthId._id] }, { $eq: ["$designation", "Dept. General Manager"] }] }
                     }
                 }]
             }
@@ -791,13 +788,14 @@ exports.GetEastZoneManager = async (req, res) => {
         }, { $unwind: "$tally" },
         {
             $group: {
-                _id: "$employee.empName", name: { $first: "$employee.empName" }, dsgn: { $first: "Manager" }, ytrgt: { $first: "$employee.yrlytarget" },
+                _id: "$employee.empName", name: { $first: "$employee.empName" }, dsgn: { $first: "Dept. General Manager" }, ytrgt: { $first: "$employee.yrlytarget" },
                 slry: { $first: "$slry.ctc" }, expns: { $first: "$slry.expenses" }, ytdAch: { $sum: "$tally.totalAmount" }, color: { $first: "#889293" }, mid: { $first: "$employee._id" }
             }
         }, { $sort: { "ytdAch": -1 } },
         {
             $project: { _id: 0, mid: 1, name: 1, dsgn: 1, slry: 1, expns: 1, ytrgt: 1, ytrgt: 1, totExp: { $sum: ["$slry", "$expns"] }, ytdAch: 1, totAchPer: { $round: [{ $divide: ["$ytdAch", "$ytrgt"] }, 0] }, color: 1 }
-        }]);
+        }
+    ]);
 
         // ----------------------- Total ----------------------
         const coltot = await zoneModel.aggregate([{ $match: { zone: "East" } }, {
@@ -830,7 +828,7 @@ exports.GetEastZoneManager = async (req, res) => {
         }, { $unwind: "$tally" },
         {
             $group: {
-                _id: "$employee.empName", name: { $first: "$employee.empName" }, dsgn: { $first: "Manager" }, ytrgt: { $first: "$employee.yrlytarget" },
+                _id: "$employee.empName", name: { $first: "$employee.empName" }, dsgn: { $first: "Dept. General Manager" }, ytrgt: { $first: "$employee.yrlytarget" },
                 slry: { $first: "$slry.ctc" }, expns: { $first: "$slry.expenses" }, ytdAch: { $sum: "$tally.totalAmount" }, color: { $first: "#889293" }, mid: { $first: "$employee._id" }
             }
         }, { $sort: { "ytdAch": -1 } },
@@ -864,8 +862,7 @@ exports.GetEastZoneManager = async (req, res) => {
         { $project: { _id: 0, name: 1, dsgn: 1, ytrgt: 1, slry: 1, expns: 1, totAch: 1, totExpenditure: { $sum: ["$slry", "$expns"] }, totAchPer: { $round: [{ $divide: ["$totAch", "$ytrgt"] }, 0] } } }
         ]);
 
-
-        res.status(200).json({ status: 200, message: "East's Managers", HeadOfZone: hoz[0], response: mdetail, coltot })
+         res.status(200).json({ status: 200, message: "East's Managers", HeadOfZone: hoz[0], response: mdetail, coltot })
     } catch (err) {
         res.status(400).json({ status: 400, response: err.message })
     }
@@ -952,7 +949,7 @@ exports.GetWestZoneManager = async (req, res) => {
     try {
 
         const currMonthId = await monthModel.findOne({ month: currMonth });
-        const manager = await designationModel.findOne({ designation: "Manager" });
+        const manager = await designationModel.findOne({ designation: "Dept. General Manager" });
 
         //----------------- Head Of Zone ------------------
         const dsgn = await designationModel.findOne({ designation: "Zone Head" });
@@ -1002,7 +999,7 @@ exports.GetWestZoneManager = async (req, res) => {
             $lookup: {
                 from: "salary_expenses", localField: "employee.empName", foreignField: "name", as: "slry", pipeline: [{
                     "$match": {
-                        "$expr": { $and: [{ $eq: ["$monthId", currMonthId._id] }, { $eq: ["$designation", "Manager"] }] }
+                        "$expr": { $and: [{ $eq: ["$monthId", currMonthId._id] }, { $eq: ["$designation", "Dept. General Manager"] }] }
                     }
                 }]
             }
@@ -1017,7 +1014,7 @@ exports.GetWestZoneManager = async (req, res) => {
         }, { $unwind: "$tally" },
         {
             $group: {
-                _id: "$employee.empName", name: { $first: "$employee.empName" }, dsgn: { $first: "Manager" }, ytrgt: { $first: "$employee.yrlytarget" },
+                _id: "$employee.empName", name: { $first: "$employee.empName" }, dsgn: { $first: "Dept. General Manager" }, ytrgt: { $first: "$employee.yrlytarget" },
                 slry: { $first: "$slry.ctc" }, expns: { $first: "$slry.expenses" }, ytdAch: { $sum: "$tally.totalAmount" }, color: { $first: "#889293" }, mid: { $first: "$employee._id" }
             }
         }, { $sort: { "ytdAch": -1 } },
@@ -1055,7 +1052,7 @@ exports.GetWestZoneManager = async (req, res) => {
         }, { $unwind: "$tally" },
         {
             $group: {
-                _id: "$employee.empName", name: { $first: "$employee.empName" }, dsgn: { $first: "Manager" }, ytrgt: { $first: "$employee.yrlytarget" },
+                _id: "$employee.empName", name: { $first: "$employee.empName" }, dsgn: { $first: "Dept. General Manager" }, ytrgt: { $first: "$employee.yrlytarget" },
                 slry: { $first: "$slry.ctc" }, expns: { $first: "$slry.expenses" }, ytdAch: { $sum: "$tally.totalAmount" }, color: { $first: "#889293" }, mid: { $first: "$employee._id" }
             }
         }, { $sort: { "ytdAch": -1 } },
@@ -1078,16 +1075,18 @@ exports.GetWestZoneManager = async (req, res) => {
         }, { $unwind: "$slry" },
         {
             $lookup: {
-                from: "tallies", localField: "empName", foreignField: "employee", as: "tally", pipeline: [{
+                from: "tallies", localField: "empName", foreignField: "employee", as: "tally",
+                 pipeline: [{
                     $match: { "$expr": { $eq: ["$monthId", currMonthId._id] } }
                 }]
             }
-        }, { $unwind: "$tally" },
+        }
+        , { $unwind: "$tally" },
         { $group: { _id: "$tally.employee", name: { $first: "$empName" }, dsgn: { $first: "Zone Head" }, ytrgt: { $first: "$yrlytarget" }, slry: { $first: "$slry.ctc" }, expns: { $first: "$slry.expenses" }, totAch: { $first: "$tally.totalAmount" } } },
         { $project: { _id: 0, name: 1, dsgn: 1, ytrgt: 1, slry: 1, expns: 1, totAch: 1, totExpenditure: { $sum: ["$slry", "$expns"] }, totAchPer: { $round: [{ $divide: ["$totAch", "$ytrgt"] }, 0] } } }
         ]);
 
-
+// console.log(hoz,"hoz-------------",currMonthId._id)
         res.status(200).json({ status: 200, message: "West's Managers", HeadOfZone: hoz[0], response: mdetail, coltot })
     } catch (err) {
         res.status(400).json({ status: 400, response: err.message })
@@ -1181,7 +1180,7 @@ exports.GetWestZoneManager = async (req, res) => {
 exports.GetCentralZoneManager = async (req, res) => {
     try {
         const currMonthId = await monthModel.findOne({ month: currMonth });
-        const manager = await designationModel.findOne({ designation: "Manager" });
+        const manager = await designationModel.findOne({ designation: "Dept. General Manager" });
 
         //----------------- Head Of Zone ------------------
         const dsgn = await designationModel.findOne({ designation: "Zone Head" });
@@ -1231,7 +1230,7 @@ exports.GetCentralZoneManager = async (req, res) => {
             $lookup: {
                 from: "salary_expenses", localField: "employee.empName", foreignField: "name", as: "slry", pipeline: [{
                     "$match": {
-                        "$expr": { $and: [{ $eq: ["$monthId", currMonthId._id] }, { $eq: ["$designation", "Manager"] }] }
+                        "$expr": { $and: [{ $eq: ["$monthId", currMonthId._id] }, { $eq: ["$designation", "Dept. General Manager"] }] }
                     }
                 }]
             }
@@ -1246,7 +1245,7 @@ exports.GetCentralZoneManager = async (req, res) => {
         }, { $unwind: "$tally" },
         {
             $group: {
-                _id: "$employee.empName", name: { $first: "$employee.empName" }, dsgn: { $first: "Manager" }, ytrgt: { $first: "$employee.yrlytarget" },
+                _id: "$employee.empName", name: { $first: "$employee.empName" }, dsgn: { $first: "Dept. General Manager" }, ytrgt: { $first: "$employee.yrlytarget" },
                 slry: { $first: "$slry.ctc" }, expns: { $first: "$slry.expenses" }, ytdAch: { $sum: "$tally.totalAmount" }, color: { $first: "#889293" }, mid: { $first: "$employee._id" }
             }
         },
