@@ -5,4 +5,4 @@ COPY . .
 WORKDIR /app/dr_odin_reactjs/
 RUN npm install
 CMD ["npm", "run", "start"]
-EXPOSE 3008
+EXPOSE 7011
