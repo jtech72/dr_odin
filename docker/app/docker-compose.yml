@@ -18,3 +18,5 @@ services:
     container_name: odin_client
     ports:
         - 7011:7011
+    environment:
+      - PORT=7011

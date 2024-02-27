@@ -3,8 +3,6 @@ name: Dr_odin CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
 
@@ -14,6 +12,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Set execute permission for deploy.sh
+      run: chmod +x docker/app/deploy.sh
     - name: Build the Docker image
       run: |
         cd docker
