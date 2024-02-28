@@ -347,7 +347,8 @@ console.log(show,"ppppppppppppppppppppppppp")
                                                                 </Col>
                                                                 <Col lg={12}>
                                                                     <Form.Group className=""  >
-                                                                        <Form.Select {...register("reportingManagerName", { required: true})}
+                                                                        <Form.Select {...register("reportingManagerName" , !show ? { required: true  } : { required:false  },   )}
+                                                                        disabled={show}
                                                                         >
                                                                             <option value=""> --Select-- </option>
                                                                             {store?.ReportingManagerByDesignationReducer?.response?.length >0 ? store?.ReportingManagerByDesignationReducer?.response?. map((ele, ind) => {
