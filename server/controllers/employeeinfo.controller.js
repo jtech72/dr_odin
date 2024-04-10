@@ -132,8 +132,7 @@ exports.CreateEmployee = async (req, res) => {
 
 
 exports.UpdateEmployee = async (req, res) => {
-console.log("here employee are getting updated")
-    const data = req.body; let rmName;
+     const data = req.body; let rmName;
     try {
         const Head = await designationModel.findById({ _id: req.body.designation, companyid: req.body.companyId });
         // if (Head.isHead == true) {
