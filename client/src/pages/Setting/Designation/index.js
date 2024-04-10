@@ -15,37 +15,43 @@ function Designation() {
     const store = useSelector((state) => state);
     const successHandle = store?.GetDesignationReducer;
     const successDeleteHandle = store?.deleteDesignationReducer
-    const [openModal,setOpenModal] = useState(false)
-    const[updateModal,setUpdateModal] = useState(false)
-    const [render,setRender] = useState(false)
-    const [updateData,setUpdateData] = useState()
-    const [deleteModal,setDeletemodal] = useState(false)
-    const [deleteId,setDeleteId] = useState("")
+    const [openModal, setOpenModal] = useState(false)
+    const [updateModal, setUpdateModal] = useState(false)
+    const [render, setRender] = useState(false)
+    const [updateData, setUpdateData] = useState()
+    const [deleteModal, setDeletemodal] = useState(false)
+    const [deleteId, setDeleteId] = useState("")
     const handleDesignation = () => {
         setOpenModal(true)
     };
     const handleCloseModal = (data) => {
-        if(data==="render"){
+        if (data === "render") {
             setRender(!render)
         }
         setOpenModal(false)
     };
-    const closeUpdateModal = (data)=>{
-        if(data==="render"){
+    const closeUpdateModal = (data) => {
+        if (data === "render") {
             setRender(!render)
         }
         setUpdateModal(false)
     }
-    const handleUpdate = (data)=>{
-        setUpdateModal(true)
-        setUpdateData(data)
+    const handleUpdate = (data) => {
+        if (data?.designation !== "Vice President") {
+            setUpdateModal(true)
+            setUpdateData(data)
+        }
+
     }
-    const handleDelete = (data)=>{
-        setDeleteId(data?._id)
-        setDeletemodal(true)
+    const handleDelete = (data) => {
+        if (data?.designation !== "Vice President") {
+            setDeleteId(data?._id)
+            setDeletemodal(true)
+        }
+
     }
-    
-    const handleDeleteModal = ()=>{
+
+    const handleDeleteModal = () => {
         dispatch(deleteDesignation(deleteId))
         setDeletemodal(false)
 
@@ -56,12 +62,12 @@ function Designation() {
     }, [render]);
 
     useEffect(() => {
-      if(successDeleteHandle?.data?.status==200){
-        setRender(!render)
-        ToastHandle("success","Deleted Successfully")
-      }
+        if (successDeleteHandle?.data?.status == 200) {
+            setRender(!render)
+            ToastHandle("success", "Deleted Successfully")
+        }
     }, [successDeleteHandle])
-    
+
 
     return (
         <>
@@ -75,7 +81,7 @@ function Designation() {
                                 <Col className="text-end" lg={12}>
                                     <Button className=" rounded-pill " onClick={handleDesignation}>
                                         {' '}
-                                  Create Designation
+                                        Create Designation
                                     </Button>
                                 </Col>
                             </Row>
@@ -98,14 +104,22 @@ function Designation() {
                                                 <td>{record?.designation}</td>
                                                 <td>{record?.rmdsgn?.designation}</td>
                                                 <td>
-                                                    {' '}
                                                     <i
                                                         style={{ cursor: 'pointer' }}
-                                                        className="dripicons-document-edit" onClick={()=>handleUpdate(record)}></i>
+                                                        className="dripicons-document-edit"
+                                                        onClick={record.designation !== 'Vice President' ? () => handleUpdate(record) : null}
+                                                        title={record.designation === 'Vice President' ? "You can't edit Vice President" : ""}
+                                                    ></i>
                                                 </td>
                                                 <td>
-                                                <i style={{cursor:"pointer"}} className=" dripicons-trash" onClick = {()=>{handleDelete(record)}}></i>
-                                        </td>
+                                                    <i
+                                                        style={{ cursor: 'pointer' }}
+                                                        className="dripicons-trash"
+                                                        onClick={record.designation !== 'Vice President' ? () => handleDelete(record) : null}
+                                                        title={record.designation === 'Vice President' ? "You can't delete Vice President" : ""}
+                                                    ></i>
+                                                </td>
+
                                             </tr>
                                         );
                                     })}
@@ -115,8 +129,8 @@ function Designation() {
                     )}
                 </Card>
             </>
-            <Create modal = {openModal}  closeModal = {handleCloseModal}/>
-            <Update modal={updateModal} closeModal={closeUpdateModal} data = {updateData}/>
+            <Create modal={openModal} closeModal={handleCloseModal} />
+            <Update modal={updateModal} closeModal={closeUpdateModal} data={updateData} />
 
 
 
@@ -126,22 +140,22 @@ function Designation() {
 
 
 
-             {/* delete modal starts */}
+            {/* delete modal starts */}
 
-          <Modal  show={deleteModal} onHide = {()=>{setDeletemodal(false)}} >
-        <Modal.Header >
-          <Modal.Title>Are you sure! You want to delete </Modal.Title>
-        </Modal.Header>
-      
-        <Modal.Footer>
-          <Button variant="secondary" onClick = {()=>{setDeletemodal(false)}} >
-            Cancel
-          </Button>
-          <Button variant="danger" onClick={handleDeleteModal} >
-            Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
+            <Modal show={deleteModal} onHide={() => { setDeletemodal(false) }} >
+                <Modal.Header >
+                    <Modal.Title>Are you sure! You want to delete </Modal.Title>
+                </Modal.Header>
+
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => { setDeletemodal(false) }} >
+                        Cancel
+                    </Button>
+                    <Button variant="danger" onClick={handleDeleteModal} >
+                        Delete
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
     );
 }
