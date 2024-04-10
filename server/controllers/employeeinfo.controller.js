@@ -132,9 +132,10 @@ exports.CreateEmployee = async (req, res) => {
 
 
 exports.UpdateEmployee = async (req, res) => {
-     const data = req.body; let rmName;
+     const data = req.body;
+      let rmName;
     try {
-        const Head = await designationModel.findById({ _id: req.body.designation, companyid: req.body.companyId });
+         const Head = await designationModel.findById({ _id: req.body.designation, companyid: req.body.companyId });
         // if (Head.isHead == true) {
             const empObj = {
                 empId: data.empId,
@@ -147,7 +148,8 @@ exports.UpdateEmployee = async (req, res) => {
                 empLeftDate: data.empLeftDate,
                 companyid: data?.companyId,
                 state:data?.state,
-                city:data?.city
+                city:data?.city,
+                zoneId:data.zoneId
             }
 
             const insert_resp = await empInfoModel.findByIdAndUpdate({ _id: data.employId }, empObj, { new: true });
@@ -195,7 +197,7 @@ exports.DeleteEmployee = async (req, res) => {
 }
 
 exports.ReportingManager = async (req, res) => {
-    console.log("here")
+    console.log("here----------")
      const companyId = mongoose.Types.ObjectId(req.userid);
      try {
         const data = req.query;
