@@ -132,8 +132,7 @@ exports.CreateEmployee = async (req, res) => {
 
 
 exports.UpdateEmployee = async (req, res) => {
-
-    const data = req.body; let rmName;
+     const data = req.body; let rmName;
     try {
         const Head = await designationModel.findById({ _id: req.body.designation, companyid: req.body.companyId });
         // if (Head.isHead == true) {
@@ -146,7 +145,9 @@ exports.UpdateEmployee = async (req, res) => {
                 mnthtarget: data.mnthtarget || 0,
                 yrlytarget: data.yrlytarget || 0,
                 empLeftDate: data.empLeftDate,
-                companyid: data?.companyId
+                companyid: data?.companyId,
+                state:data?.state,
+                city:data?.city
             }
 
             const insert_resp = await empInfoModel.findByIdAndUpdate({ _id: data.employId }, empObj, { new: true });
