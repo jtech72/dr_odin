@@ -32,8 +32,7 @@ async function empAmtUpdate(rm_id) {
 
 // ---------------------- Employee ------------------------
 exports.CreateEmployee = async (req, res) => {
-    console.log("create employee")
-    const data = req.body;
+     const data = req.body;
     let rmName;
     const companyId = mongoose.Types.ObjectId(req.userid);
     let insert_resp;
