@@ -1,15 +1,15 @@
 import { all, fork, put, takeEvery, call } from 'redux-saga/effects';
 import getDesignationByPostTypes from './constant';
-import { GetDesignation,GetZoneList } from './api';
+import { GetDesignation, GetZoneList } from './api';
 
 // start month List
-function* GetDesignationList() {
+function* GetDesignationList(payload) {
     try {
         yield put({
             type: getDesignationByPostTypes.GET_DESIGNATION_BY_POST_LOADING,
             payload: {},
         });
-        const response = yield call(GetDesignation, );
+        const response = yield call(GetDesignation, payload);
         if (response.data.status) {
             yield put({
                 type: getDesignationByPostTypes.GET_DESIGNATION_BY_POST_SUCCESS,
@@ -36,7 +36,7 @@ function* getZoneList() {
             type: getDesignationByPostTypes.GET_ZONE_LOADING,
             payload: {},
         });
-        const response = yield call(GetZoneList, );
+        const response = yield call(GetZoneList,);
         if (response.data.status) {
             yield put({
                 type: getDesignationByPostTypes.GET_ZONE_SUCCESS,
@@ -60,7 +60,7 @@ function* getZoneList() {
 export function* getDesignation(): any {
     yield takeEvery(getDesignationByPostTypes.GET_DESIGNATION_BY_POST, GetDesignationList);
 }
-export function* getZone():any{
+export function* getZone(): any {
     yield takeEvery(getDesignationByPostTypes.GET_ZONE, getZoneList)
 }
 

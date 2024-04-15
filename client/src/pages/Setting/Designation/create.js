@@ -30,32 +30,32 @@ function Create({ modal, closeModal }) {
     }
   };
 
-  const handleDesignationChange = (e) => {
-    setValue({ ...value, rm: e.target.value });
-    if (!e.target.value?.trim()) {
-      setRmError("Reporting Manager Designation is required");
-    } else {
-      setRmError("");
-    }
-  };
+  // const handleDesignationChange = (e) => {
+  //   setValue({ ...value, rm: e.target.value });
+  //   if (!e.target.value?.trim()) {
+  //     setRmError("Reporting Manager Designation is required");
+  //   } else {
+  //     setRmError("");
+  //   }
+  // };
 
   const handelCheckbox = (e) => {
     setValue({ ...value, check: e.target.checked });
   };
 
   const handleCreate = () => {
-    if (!value.designation?.trim() || !value.rm?.trim()) {
+    if (!value.designation?.trim()) {
       if (!value.designation?.trim()) {
         setDesignationError("Designation is required");
       }
-      if (!value.rm?.trim()) {
-        setRmError("Reporting Manager Designation is required");
-      }
+      // if (!value.rm?.trim()) {
+      //   setRmError("Reporting Manager Designation is required");
+      // }
       return;
     }
     let body = {
       designation: value?.designation,
-      rmdsgn: value?.rm,
+      // rmdsgn: value?.rm,
       isHead: value?.check,
     };
     dispatch(insertDesignation(body));
@@ -118,7 +118,7 @@ function Create({ modal, closeModal }) {
                         </Form.Group>
                       </Col>
                     </Row>
-                    <Row>
+                    {/* <Row>
                       <Col className="text-center mt-2" lg={5}>
                         <Form.Label>Reporting Manager Designation : <span className='text-danger'>*</span></Form.Label>
                       </Col>
@@ -142,7 +142,7 @@ function Create({ modal, closeModal }) {
                           </Form.Control.Feedback>
                         </Form.Group>
                       </Col>
-                    </Row>
+                    </Row> */}
                     {isVicePresident &&
                       <Row>
                         <Col className="text-center" lg={5}>

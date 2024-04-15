@@ -1,6 +1,6 @@
 export const MONTH_API = "/month/get"
 
-export const LIST_DESIGNATION = "/designation/get"
+export const LIST_DESIGNATION = "/designation/get?"
 export const CREATE_EMPLOYEE = "/empinfo/create"
 export const GET_EMPLOYEE = "/empinfo/allemp"
 export const UPDATE_EMPLOYEE = "empinfo/update/ae39"
@@ -17,7 +17,7 @@ export const UPLOAD_SALARY_REPORT = "/salary/insert"
 export const UPLOAD_RATE_DIFFERENCE_REPORT = "/tally/rateDifference"
 
 
-export const GET_REPORTING_MANAGER_BY_DESIGNATION = "/empinfo/get?designationId"
+export const GET_REPORTING_MANAGER_BY_DESIGNATION = "/empinfo/get?"
 export const CREATE_STATE = "/designation/createState"
 export const GET_STATE = "/designation/getState"
 // delet state api 

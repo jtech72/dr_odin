@@ -3,22 +3,22 @@ import * as URL from "../../../constants/endPoint"
 
 const api = new APICore()
 
-function getActiveEmployeeApi(data):any{
-    return api.get (`${URL.GET_EMPLOYEE}?Askip=${data?.payload?.skip}&Lskip=${data?.payload?.leftSkip}&name=${data?.payload?.searchkey}`)
+function getActiveEmployeeApi(data): any {
+    return api.get(`${URL.GET_EMPLOYEE}?Askip=${data?.payload?.skip}&Lskip=${data?.payload?.leftSkip}&name=${data?.payload?.searchkey}`)
 }
 
-function createActiveEmployeeApi(params:any):any{
-    return api.create(URL.CREATE_EMPLOYEE,params)
+function createActiveEmployeeApi(params: any): any {
+    return api.create(URL.CREATE_EMPLOYEE, params)
 }
-function updateActiveEmployeeApi(params:any):any{
-    return api.update(URL.UPDATE_EMPLOYEE,params)
+function updateActiveEmployeeApi(params: any): any {
+    return api.update(URL.UPDATE_EMPLOYEE, params)
 }
-function GetReportingManagerByDesignationApi(data):any{
+function GetReportingManagerByDesignationApi(data): any {
     // return api.get(URL.GET_REPORTING_MANAGER_BY_DESIGNATION,params)
-    return api.get(`${URL.GET_REPORTING_MANAGER_BY_DESIGNATION}=${data.designationId}&zoneId=${data.zoneId}`)
+    return api.get(`${URL.GET_REPORTING_MANAGER_BY_DESIGNATION}search=${data.search}`)
 }
 
 // function updateEmployeeApi(params:any):any{
 //     return api.create(URL.CREATE_EMPLOYEE,params)
 // }
-export {createActiveEmployeeApi,getActiveEmployeeApi,updateActiveEmployeeApi,GetReportingManagerByDesignationApi}
+export { createActiveEmployeeApi, getActiveEmployeeApi, updateActiveEmployeeApi, GetReportingManagerByDesignationApi }
