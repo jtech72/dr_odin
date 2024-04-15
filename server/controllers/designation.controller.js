@@ -7,14 +7,21 @@ const { default: mongoose } = require("mongoose");
 
 // ---------------------- Designation ----------------------
 exports.GetDesignations = async (req, res) => {
-    const companyId = mongoose.Types.ObjectId(req.userid);
+     const companyId = mongoose.Types.ObjectId(req.userid);
     try {
+        const search=req.query.search;
         const dsgnCount = await designationModel.countDocuments({ companyid: companyId });
+
+        if(search){
+            const findDsgn = { designation: { $regex: search, $options: "i" }, companyid: companyId };
+            const resp= await designationModel.find(findDsgn);
+            return res.status(200).json({ status: 200, message: "All Designations", response: resp, dsgnCount });
+         }
         const resp = await designationModel.find({ companyid: companyId }).populate("rmdsgn");
         if (resp) {
-            res.status(200).json({ status: 200, message: "All Designations", response: resp, dsgnCount });
+          return  res.status(200).json({ status: 200, message: "All Designations", response: resp, dsgnCount });
         } else {
-            res.status(200).json({ status: 400, message: "Empty" });
+           return res.status(200).json({ status: 400, message: "Empty" });
         }
     } catch (err) {
         res.status(400).json({ status: 400, response: err.message });
@@ -36,6 +43,7 @@ exports.DeleteDesignation = async (req, res) => {
 }
 
 exports.InsertDesignations = async (req, res) => {
+    console.log("here creating designations")
     const data = req.body; let payload;
     console.log(data,"Here Designation")
     const companyId = mongoose.Types.ObjectId(req.userid);
@@ -75,12 +83,12 @@ exports.InsertDesignations = async (req, res) => {
 
         const resp = await designationModel.create(payload);
         if (resp) {
-            res.status(200).json({ status: 200, message: "Successfully Created", response: resp });
+           return res.status(200).json({ status: 200, message: "Successfully Created", response: resp });
         } else {
-            res.status(200).json({ status: 400, message: "Not Created" });
+            return  res.status(200).json({ status: 400, message: "Not Created" });
         }
     } catch (err) {
-        res.status(400).json({ status: 400, response: err.message });
+        return  res.status(400).json({ status: 400, response: err.message });
     }
 };
 
