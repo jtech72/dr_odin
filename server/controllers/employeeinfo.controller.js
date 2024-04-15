@@ -178,7 +178,9 @@ exports.UpdateEmployee = async (req, res) => {
                 companyid: data?.companyId,
                 state:data?.state,
                 city:data?.city,
-                zoneId:data.zoneId
+                zoneId:data.zoneId,
+                rmId:data?.rmId,
+                
             }
 
             const insert_resp = await empInfoModel.findByIdAndUpdate({ _id: data.employId }, empObj, { new: true });
