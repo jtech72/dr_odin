@@ -3,6 +3,7 @@ const statesModel = require("../models/state.model");
 const cityModel = require("../models/city.model");
 const zoneModel = require("../models/zone.model");
 const { default: mongoose } = require("mongoose");
+const employeeInfo = require("../models/employeeinfo.model");
 
 
 // ---------------------- Designation ----------------------
@@ -43,9 +44,9 @@ exports.DeleteDesignation = async (req, res) => {
 }
 
 exports.InsertDesignations = async (req, res) => {
-    console.log("here creating designations")
+    // console.log("here creating designations")
     const data = req.body; let payload;
-    console.log(data,"Here Designation")
+    // console.log(data,"Here Designation")
     const companyId = mongoose.Types.ObjectId(req.userid);
 
     try {
@@ -186,7 +187,9 @@ exports.UpdateStates = async (req, res) => {
 
 exports.DeleteState = async (req, res) => {
     try {
-        const resp = await statesModel.findByIdAndDelete({ _id: req.query.id });
+         const resp = await statesModel.findByIdAndDelete({ _id: req.query.id });
+        await cityModel.deleteMany({stateId:req.query.id});
+        await employeeInfo.deleteMany({state:req.query.id});
         if (resp) {
             res.status(200).json({ status: 200, message: "Successfully Deleted", response: resp });
         } else {

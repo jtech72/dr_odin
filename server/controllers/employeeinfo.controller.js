@@ -32,8 +32,7 @@ async function empAmtUpdate(rm_id) {
 
 // ---------------------- Employee ------------------------
 exports.CreateEmployee = async (req, res) => {
-    console.log("create employee")
-    const data = req.body;
+     const data = req.body;
     let rmName;
     const companyId = mongoose.Types.ObjectId(req.userid);
     let insert_resp;
@@ -102,29 +101,57 @@ exports.CreateEmployee = async (req, res) => {
                 }
             } 
             else {
-                // rmName = await empInfoModel.findById({ _id: req.body.rmId });
-                const empObj = {
-                    empId: data.empId,
-                    empName: data.empName,
-                    designation: data.designation,
-                    rmId: data.rmId,
-                    // rm: rmName.empName,
-                    zoneId: data.zoneId,
-                    state: data.state,
-                    city: data.city,
-                    doj: data.doj,
-                    status: data.status,
-                    mnthtarget: data.mnthtarget || 0,
-                    yrlytarget: data.yrlytarget || 0,
-                    empLeftDate: data.empLeftDate,
-                    companyid: companyId
+                if(req.body.rmId){
+                    rmName = await empInfoModel.findById({ _id: req.body.rmId });
+                    console.log(rmName);
+                    const empObj = {
+                        empId: data.empId,
+                        empName: data.empName,
+                        designation: data.designation,
+                        rmId: data.rmId,
+                        rm: rmName.empName,
+                        zoneId: data.zoneId,
+                        state: data.state,
+                        city: data.city,
+                        doj: data.doj,
+                        status: data.status,
+                        mnthtarget: data.mnthtarget || 0,
+                        yrlytarget: data.yrlytarget || 0,
+                        empLeftDate: data.empLeftDate,
+                        companyid: companyId
+                    }
+                    insert_resp = await empInfoModel.create(empObj);
+                    if (insert_resp) {
+                      return  res.status(200).json({ status: 200, message: "Successfully Created", response: insert_resp });
+                    } else {
+                        res.status(200).json({ status: 401, message: "Not Created" });
+                    }
                 }
-                insert_resp = await empInfoModel.create(empObj);
-                if (insert_resp) {
-                    res.status(200).json({ status: 200, message: "Successfully Created", response: insert_resp });
-                } else {
-                    res.status(200).json({ status: 401, message: "Not Created" });
-                }
+                else{
+                    const empObj = {
+                        empId: data.empId,
+                        empName: data.empName,
+                        designation: data.designation,
+                         
+                        zoneId: data.zoneId,
+                        state: data.state,
+                        city: data.city,
+                        doj: data.doj,
+                        status: data.status,
+                        mnthtarget: data.mnthtarget || 0,
+                        yrlytarget: data.yrlytarget || 0,
+                        empLeftDate: data.empLeftDate,
+                        companyid: companyId
+                    }
+                    insert_resp = await empInfoModel.create(empObj);
+                    if (insert_resp) {
+                       return res.status(200).json({ status: 200, message: "Successfully Created", response: insert_resp });
+                    } 
+                    else {
+                        res.status(200).json({ status: 401, message: "Not Created" });
+                    }
+                 }
+              
             }
         }
     } catch (err) {
@@ -151,7 +178,9 @@ exports.UpdateEmployee = async (req, res) => {
                 companyid: data?.companyId,
                 state:data?.state,
                 city:data?.city,
-                zoneId:data.zoneId
+                zoneId:data.zoneId,
+                rmId:data?.rmId,
+                
             }
 
             const insert_resp = await empInfoModel.findByIdAndUpdate({ _id: data.employId }, empObj, { new: true });
