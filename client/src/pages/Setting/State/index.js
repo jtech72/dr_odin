@@ -19,17 +19,17 @@ function State() {
     const [updateStateModel, setUpdateStateModel] = useState(false);
     const [render, setRender] = useState(true);
     const [updatedStateValue, setUpdatedStateValue] = useState('');
-    const [deleteModal,setDeletemodal] = useState(false);
-    const [deleteId,setDeleteId] = useState("")
+    const [deleteModal, setDeletemodal] = useState(false);
+    const [deleteId, setDeleteId] = useState("")
 
-    const hanldeState = () => { 
+    const hanldeState = () => {
         setOpenStateModel(true);
     };
     const handleUpdateState = (data) => {
         setUpdatedStateValue(data);
         setUpdateStateModel(true);
     };
-    const handleCreateCity = () => {};
+    const handleCreateCity = () => { };
     const closeStateModal = (data) => {
         if (data == 'render') {
             setRender(!render);
@@ -40,8 +40,8 @@ function State() {
         setDeleteId(data?._id)
         setDeletemodal(true)
     };
-    
-    const handleDeleteModal = ()=>{
+
+    const handleDeleteModal = () => {
         dispatch(deletState(deleteId));
         setDeletemodal(false)
 
@@ -60,12 +60,12 @@ function State() {
     }, [render]);
 
     useEffect(() => {
-      if(deleteStateSuccessHandle.data.status==200){
-        setRender(!render);
-        ToastHandle("success","Successfully Deleted 👍")
-      }
+        if (deleteStateSuccessHandle.data.status == 200) {
+            setRender(!render);
+            ToastHandle("success", "Successfully Deleted 👍")
+        }
     }, [deleteStateSuccessHandle])
-    
+
 
     return (
         <>
@@ -126,22 +126,22 @@ function State() {
             <Update modal={updateStateModel} closeModal={closeupdateStateModal} data={updatedStateValue} />
 
 
-                {/* delete modal starts */}
+            {/* delete modal starts */}
 
-          <Modal  show={deleteModal} onHide = {()=>{setDeletemodal(false)}} >
-        <Modal.Header >
-          <Modal.Title>Are you sure! You want to delete </Modal.Title>
-        </Modal.Header>
-      
-        <Modal.Footer>
-          <Button variant="secondary" onClick = {()=>{setDeletemodal(false)}} >
-            Cancel
-          </Button>
-          <Button variant="danger" onClick={handleDeleteModal} >
-            Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
+            <Modal show={deleteModal} onHide={() => { setDeletemodal(false) }} >
+                <Modal.Header >
+                    <Modal.Title>Are you sure you want to delete? This action will also delete associated employees and cities.</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => { setDeletemodal(false) }} >
+                        Cancel
+                    </Button>
+                    <Button variant="danger" onClick={handleDeleteModal} >
+                        Delete
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
     );
 }

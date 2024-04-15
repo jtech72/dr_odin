@@ -403,7 +403,9 @@ function Edit({ modelShow, editData, close }) {
                                                                             <option>---select---</option>
                                                                             {store?.ReportingManagerByDesignationReducer?.response?.length > 0 && store?.ReportingManagerByDesignationReducer?.response?.map((ele, ind) => {
                                                                                 return (
-                                                                                    <option value={ele?._id}> {ele?.empName} {`(${ele?.designation?.designation})`} </option>
+                                                                                    <option value={ele?._id}> {ele?.empName}
+                                                                                        {/* {`(${ele?.designation?.designation})`} */}
+                                                                                    </option>
                                                                                 )
                                                                             })}
 
