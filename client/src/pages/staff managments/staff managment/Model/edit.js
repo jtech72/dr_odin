@@ -122,7 +122,7 @@ function Edit({ modelShow, editData, close }) {
 
     useEffect(() => {
         if (successHandle == 200) {
-            ToastHandle("success", "successfully created")
+            ToastHandle("success", "successfully Updated")
             close(false)
             reset()
         }
@@ -401,7 +401,7 @@ function Edit({ modelShow, editData, close }) {
                                                                             type="text" disabled={vicePresident}
                                                                         >
                                                                             <option>---select---</option>
-                                                                            {store?.ReportingManagerByDesignationReducer?.response?.length>0 && store?.ReportingManagerByDesignationReducer?.response?.map((ele, ind) => {
+                                                                            {store?.ReportingManagerByDesignationReducer?.response?.length > 0 && store?.ReportingManagerByDesignationReducer?.response?.map((ele, ind) => {
                                                                                 return (
                                                                                     <option value={ele?._id}> {ele?.empName} {`(${ele?.designation?.designation})`} </option>
                                                                                 )
