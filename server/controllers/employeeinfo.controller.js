@@ -32,6 +32,7 @@ async function empAmtUpdate(rm_id) {
 
 // ---------------------- Employee ------------------------
 exports.CreateEmployee = async (req, res) => {
+    console.log("create employee")
     const data = req.body;
     let rmName;
     const companyId = mongoose.Types.ObjectId(req.userid);
@@ -73,15 +74,15 @@ exports.CreateEmployee = async (req, res) => {
                 }
             } else if (Head.isHead == false && Hget.isHead) {
                 const dsgn = await designationModel.findById({ _id: req.body.designation, companyid: companyId });
-                const Hget = await designationModel.findById({ _id: dsgn.rmdsgn }); // get rm NAME
+                // const Hget = await designationModel.findById({ _id: dsgn.rmdsgn }); // get rm NAME
                 if (Hget.isHead) {
-                    rmName = await empInfoModel.findById({ _id: req.body.rmId });
+                    // rmName = await empInfoModel.findById({ _id: req.body.rmId });
                     const empObj = {
                         empId: data.empId,
                         empName: data.empName,
                         designation: data.designation,
                         rmId: data.rmId,
-                        rm: rmName.empName,
+                        // rm: rmName.empName,
                         zoneId: data.zoneId,
                         doj: data.doj,
                         status: data.status,
@@ -99,14 +100,15 @@ exports.CreateEmployee = async (req, res) => {
                         res.status(200).json({ status: 401, message: "Already Exists" });
                     }
                 }
-            } else {
-                rmName = await empInfoModel.findById({ _id: req.body.rmId });
+            } 
+            else {
+                // rmName = await empInfoModel.findById({ _id: req.body.rmId });
                 const empObj = {
                     empId: data.empId,
                     empName: data.empName,
                     designation: data.designation,
                     rmId: data.rmId,
-                    rm: rmName.empName,
+                    // rm: rmName.empName,
                     zoneId: data.zoneId,
                     state: data.state,
                     city: data.city,
@@ -126,7 +128,7 @@ exports.CreateEmployee = async (req, res) => {
             }
         }
     } catch (err) {
-        res.status(400).json({ status: 400, response: err.message });
+        res.status(400).json({ status: 400, response: err.stack });
     }
 };
 
@@ -197,29 +199,42 @@ exports.DeleteEmployee = async (req, res) => {
 }
 
 exports.ReportingManager = async (req, res) => {
-    console.log("here----------")
-     const companyId = mongoose.Types.ObjectId(req.userid);
+    const companyId = mongoose.Types.ObjectId(req.userid);
      try {
-        const data = req.query;
+     let search=req.query.search;
+     if(search){
+        const findEmp = { empName: { $regex: search, $options: "i" }, companyid: companyId };
+
+        const reporting_manager = await empInfoModel.find(findEmp);
+        return res.status(200).json({ status: 200, message: "reporting manager", response: reporting_manager });
+
+     }
+     else{
+        const reporting_manager = await empInfoModel.find({companyid: companyId }).populate("designation");
+        return res.status(200).json({ status: 200, message: "reporting manager", response: reporting_manager });
+
+     }
+        // const data = req.query;
          //check first
-        const dsgn = await designationModel.findById({ _id: data.designationId, companyid: companyId });
-        if (dsgn.isHead) {
-             return res.status(200).json({ status: 401, message: "Head's RM Not Exists" });
-        }
-        // reporting manager
-        const rmDsgn = await designationModel.findById({ _id: dsgn.rmdsgn, companyid: companyId });
-          if (rmDsgn) {
-            const reporting_manager = await empInfoModel.find({ designation: rmDsgn._id, companyid: companyId }).populate("designation");
-            res.status(200).json({ status: 200, message: "reporting manager", response: reporting_manager });
-        } else if (rmDsgn)  {
-            console.log(rmDsgn);
-             const reporting_manager = await empInfoModel.find({ designation: rmDsgn._id, zoneId: data.zoneId, companyid: companyId }).populate("designation");
-             res.status(200).json({ status: 200, message: "reporting manager", response: reporting_manager });
-        } else {
-            res.status(200).json({ status: 401, message: "Not Found" });
-        }
+        // const dsgn = await designationModel.findById({ _id: data.designationId, companyid: companyId });
+        // if (dsgn.isHead) {
+        //      return res.status(200).json({ status: 401, message: "Head's RM Not Exists" });
+        // }
+        // // reporting manager
+        // const rmDsgn = await designationModel.findById({ _id: dsgn.rmdsgn, companyid: companyId });
+        //   if (rmDsgn) {
+            // const reporting_manager = await empInfoModel.find({companyid: companyId }).populate("designation");
+        //     res.status(200).json({ status: 200, message: "reporting manager", response: reporting_manager });
+        // } else if (rmDsgn)  {
+        //     console.log(rmDsgn);
+        //      const reporting_manager = await empInfoModel.find({ designation: rmDsgn._id, zoneId: data.zoneId, companyid: companyId }).populate("designation");
+            // return res.status(200).json({ status: 200, message: "reporting manager", response: reporting_manager });
+             
+        // } else {
+        //     res.status(200).json({ status: 401, message: "Not Found" });
+        // }
     } catch (err) {
-        res.status(400).json({ status: 400, response: err.stack });
+        res.status(400).json({ status: 400, response: err.message });
     }
 };
 
