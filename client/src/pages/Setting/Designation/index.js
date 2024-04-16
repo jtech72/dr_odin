@@ -56,9 +56,9 @@ function Designation() {
         setDeletemodal(false)
 
     }
-
+    const [searchss, setSearchss] = useState('')
     useEffect(() => {
-        dispatch(getDesignationByPost());
+        dispatch(getDesignationByPost({ search: searchss }));
     }, [render]);
 
     useEffect(() => {
