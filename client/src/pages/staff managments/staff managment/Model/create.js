@@ -13,7 +13,7 @@ import { getcityByState, getStateByZone } from '../../../../redux/setting/action
 import MainLoader from '../../../../components/MainLoader';
 import ToastHandle from "../../../../constants/Toaster/Toaster"
 import { getDesignationByPost } from '../../../../redux/actions';
-
+import Select from 'react-select'
 
 const Create = ({ modelShow, close }) => {
     const { register, handleSubmit, watch, reset, setValue, formState: { errors } } = useForm();
@@ -77,7 +77,7 @@ const Create = ({ modelShow, close }) => {
         let daata = {
             // designationId: e.target.value.split(',')[0],
             // zoneId: data?.zone
-            search: search
+            search: searchss
         }
         dispatch(reportingManagerByDesignationAction(daata))
         console.log(e.target.value.split(',')[0], "alldesignation")
@@ -111,24 +111,39 @@ const Create = ({ modelShow, close }) => {
             setIsChecked(false)
         }
     }
-    console.log(data.city !== "", "bis")
-    const [search, setSearch] = useState("");
-    console.log(search, ":::::")
-    useEffect(() => {
+    const [searchss, setSearchss] = useState("");
+    const [searchs, setSearchs] = useState("");
+
+    // useEffect(() => {
+    //     dispatch(
+    //         getDesignationByPost({
+    //             search: searchss,
+    //         })
+    //     );
+    // }, [searchss])
+
+    const handleChangeForDesignation = (searchss) => {
         dispatch(
             getDesignationByPost({
-                search: search,
+                search: searchss,
             })
         );
-    }, [search])
+    }
 
-    useEffect(() => {
+    const handleChangeForReportingManager = (searchs) => {
         dispatch(
             reportingManagerByDesignationAction({
-                search: search,
+                search: searchs,
             })
         );
-    }, [search])
+    }
+    // useEffect(() => {
+    //     dispatch(
+    //         reportingManagerByDesignationAction({
+    //             search: searchs,
+    //         })
+    //     );
+    // }, [searchs])
 
     return (
         <>
@@ -163,7 +178,7 @@ const Create = ({ modelShow, close }) => {
                                             <Form.Group>
                                                 <Col className='ms-2' lg={12}>
                                                     <Form.Label className='' >
-                                                        <span className="text-danger">*</span>Please enter the employee name as it appears on the uploaded telly sheet for accurate records in database
+                                                        <span className="text-danger">*</span> Please enter the employee name as it appears on the uploaded telly sheet for accurate records in database
                                                     </Form.Label>
                                                 </Col>
                                             </Form.Group>
@@ -329,15 +344,15 @@ const Create = ({ modelShow, close }) => {
                                                                         </Form.Label>
                                                                     </Col>
                                                                     <Col lg={12}>
-                                                                        <Form.Group className="">
+                                                                        {/* <Form.Group className="">
                                                                             <Form.Control
                                                                                 type="text"
                                                                                 placeholder="Search Designation"
                                                                                 onChange={(e) => setSearch(e.target.value)}
                                                                             />
-                                                                        </Form.Group>
+                                                                        </Form.Group> */}
                                                                         <Form.Group className="" >
-                                                                            <Form.Select {...register("designation", { required: true })} onChange={handelallDesination}
+                                                                            {/* <Form.Select {...register("designation", { required: true })} onChange={handelallDesination}
                                                                             >
                                                                                 <option value=""> --Select-- </option>
                                                                                 {store?.GetDesignationReducer?.getDesignation?.response?.length > 0 ? store?.GetDesignationReducer?.getDesignation?.response.map((ele, ind) => {
@@ -350,10 +365,31 @@ const Create = ({ modelShow, close }) => {
 
 
 
-                                                                            </Form.Select>
+                                                                            </Form.Select> */}
+                                                                            <Select
+                                                                                {...register("designation", { required: true })}
+                                                                                onChange={(selectedOption) => {
+                                                                                    setSearchss(selectedOption?.value);
+                                                                                    setValue("designation", selectedOption?.value); // Set the value for the "designation" field
+                                                                                }}
+                                                                                onInputChange={handleChangeForDesignation}
+                                                                                options={store?.GetDesignationReducer?.getDesignation?.response?.length > 0 ? store?.GetDesignationReducer?.getDesignation?.response.map((ele, ind) => ({
+                                                                                    value: `${ele?._id},${ele?.designation}`,
+                                                                                    label: ele?.designation
+                                                                                })) : [{ value: '', label: 'Designation is not found' }]}
+                                                                            />
                                                                             {errors?.designation && <span className="text-danger"> This field is required *</span>}
                                                                         </Form.Group>
                                                                     </Col>
+
+                                                                    {/* <Select
+                                                                        onChange={(e) => setSearch(e.target.value)}
+                                                                        options={store?.GetDesignationReducer?.getDesignation?.response?.length > 0 ? store?.GetDesignationReducer?.getDesignation?.response.map((ele, ind) => ({
+                                                                            value: `${ele?._id},${ele?.designation}`,
+                                                                            label: ele?.designation
+                                                                        })) : [{ value: '', label: 'Designation is not found' }]}
+                                                                    /> */}
+
                                                                 </Row>
                                                             </Form.Group>
 
@@ -372,7 +408,7 @@ const Create = ({ modelShow, close }) => {
                                                                     </Col>
                                                                     <Col lg={12}>
                                                                         <Form.Group className=""  >
-                                                                            <Form.Group className="">
+                                                                            {/* <Form.Group className="">
                                                                                 <Form.Control
                                                                                     type="text"
                                                                                     placeholder="Search Designation"
@@ -386,18 +422,38 @@ const Create = ({ modelShow, close }) => {
                                                                                 {store?.ReportingManagerByDesignationReducer?.response?.length > 0 ? store?.ReportingManagerByDesignationReducer?.response?.map((ele, ind) => {
                                                                                     return (
                                                                                         <option value={ele?._id}> {ele?.empName}
-                                                                                            {/* {`(${ele?.designation?.designation})`} */}
+                                                                                            {`(${ele?.designation?.designation})`}
                                                                                         </option>
                                                                                     )
                                                                                 }) : <option >Reporting Manager not found </option>}
-                                                                            </Form.Select>
+                                                                            </Form.Select> */}
+                                                                            {/* <Select
+                                                                                // onChange={(e) => setSearch(e.target.value)}
+                                                                                onChange={(selectedOption) => setSearch(selectedOption?.value)}
+                                                                                {...register("reportingManagerName", !show ? { required: false } : { required: false },)}
+                                                                                options={store?.ReportingManagerByDesignationReducer?.response?.length > 0 ? store?.ReportingManagerByDesignationReducer?.response?.map((ele, ind) => ({
+                                                                                    value: `${ele?._id},${ele?.empName}`,
+                                                                                    label: ele?.empName
+                                                                                })) : [{ value: '', label: 'Reporting Manager not found' }]}
+                                                                                isSearchable={true}
+                                                                            /> */}
+                                                                            <Select
+                                                                                {...register("reportingManagerName", { required: false })} // Register the field with React Hook Form
+                                                                                onChange={(selectedOption) => {
+                                                                                    setSearchs(selectedOption?.value);
+                                                                                    setValue("reportingManagerName", selectedOption?.value); // Set the value for the "reportingManagerName" field
+                                                                                }}
+                                                                                onInputChange={handleChangeForReportingManager}
+                                                                                options={store?.ReportingManagerByDesignationReducer?.response?.length > 0 ? store?.ReportingManagerByDesignationReducer?.response?.map((ele, ind) => ({
+                                                                                    value: `${ele?._id}`,
+                                                                                    label: ele?.empName
+                                                                                })) : [{ value: '', label: 'Reporting Manager not found' }]}
+                                                                            />
                                                                             {/* {errors?.reportingManagerName && <span className="text-danger"> This field is required *</span>} */}
                                                                         </Form.Group>
                                                                     </Col>
-
                                                                 </Row>
                                                             </Form.Group>
-
                                                         </Col>
                                                         <Col lg={6}>
                                                             <Form.Group >

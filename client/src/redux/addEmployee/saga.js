@@ -3,7 +3,7 @@ import getDesignationByPostTypes from './constant';
 import { GetDesignation, GetZoneList } from './api';
 
 // start month List
-function* GetDesignationList(payload) {
+function* GetDesignationList({ payload }) {
     try {
         yield put({
             type: getDesignationByPostTypes.GET_DESIGNATION_BY_POST_LOADING,
