@@ -14,8 +14,9 @@ function updateActiveEmployeeApi(params: any): any {
     return api.update(URL.UPDATE_EMPLOYEE, params)
 }
 function GetReportingManagerByDesignationApi(data): any {
+    console.log(data, "ratatatatatata")
     // return api.get(URL.GET_REPORTING_MANAGER_BY_DESIGNATION,params)
-    return api.get(`${URL.GET_REPORTING_MANAGER_BY_DESIGNATION}search=${data.search}`)
+    return api.get(`${URL.GET_REPORTING_MANAGER_BY_DESIGNATION}search=${data.search ? data.search : ''}`)
 }
 
 // function updateEmployeeApi(params:any):any{
