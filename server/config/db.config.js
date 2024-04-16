@@ -8,7 +8,7 @@ const connectionParams = {
 }
 
 mongoose.set('strictQuery', false);
-console.log(process.env.MONGO_URI,"process.env.MONGO_URI")
+// console.log(process.env.MONGO_URI,"process.env.MONGO_URI")
 mongoose.connect(process.env.MONGO_URI, connectionParams)
     .then(() => {
        console.log("Connect")
