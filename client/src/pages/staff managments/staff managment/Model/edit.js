@@ -5,7 +5,7 @@ import { Row, Col, Form, Card, } from 'react-bootstrap';
 import { CloseButton } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import ToastHandle from '../../../../constants/Toaster/Toaster';
-import { activeEmployeeUpdateAction } from '../../../../redux/actions';
+import { activeEmployeeUpdateAction, getDesignationByPost } from '../../../../redux/actions';
 import { reportingManagerByDesignationAction } from '../../../../redux/actions';
 import MainLoader from '../../../../components/MainLoader';
 function Edit({ modelShow, editData, close }) {
@@ -25,6 +25,7 @@ function Edit({ modelShow, editData, close }) {
         setdata({ ...data, zone: e.target.value })
         setstateData(store?.getStateReducer?.data?.response?.filter((ele) => ele?.zoneId == e.target.value))
     }
+
     const handleStateChange = (e) => {
         setdata({ ...data, state: e.target.value })
         setCityData(store?.getCityReducer?.data?.response?.filter((ele) => ele?.stateId?._id == e.target.value))
@@ -56,7 +57,6 @@ function Edit({ modelShow, editData, close }) {
     useEffect(() => {
 
         setdata({ ...data, status: editData?.status })
-
         reset({
             employeeId: editData?.empId,
             name: editData?.empName,
@@ -73,7 +73,6 @@ function Edit({ modelShow, editData, close }) {
             city: editData?.city?._id,
             leftDate: editData?.empLeftDate,
         })
-
     }, [modelShow])
 
     useEffect(() => {
@@ -312,20 +311,31 @@ function Edit({ modelShow, editData, close }) {
                                                                     </Form.Label>
                                                                 </Col>
                                                                 <Col lg={12}>
-
                                                                     <Form.Group className="" >
                                                                         <Form.Select {...register("designation", { required: true })}
-                                                                        >
-                                                                            {store?.GetDesignationReducer?.getDesignation?.response?.map((ele, ind) => {
-                                                                                return (
+                                                                        >{store?.GetDesignationReducer?.getDesignation?.response?.map((ele, ind) => {
+                                                                            return (
 
-                                                                                    <option key={ele?._id} value={ele?._id}>{ele?.designation} </option>
-                                                                                )
-                                                                            })}
+                                                                                <option key={ele?._id} value={ele?._id}>{ele?.designation} </option>
+                                                                            )
+                                                                        })}
                                                                         </Form.Select>
                                                                         {errors?.designation && <span className="text-danger"> This field is required *</span>}
                                                                     </Form.Group>
                                                                 </Col>
+                                                                {/* <Form.Group className="" >
+                                                                    <Form.Select {...register("reportingManagerName", { required: !vicePresident })}
+                                                                        type="text" disabled={vicePresident}
+                                                                    >
+                                                                        <option>---select---</option>
+                                                                        {store?.ReportingManagerByDesignationReducer?.response?.length > 0 && store?.ReportingManagerByDesignationReducer?.response?.map((ele, ind) => {
+                                                                            return (
+                                                                                <option value={ele?._id}> 
+                                                                                </option>
+                                                                            )
+                                                                        })}
+
+                                                                    </Form.Select> */}
                                                             </Row>
                                                         </Form.Group>
 
@@ -353,7 +363,7 @@ function Edit({ modelShow, editData, close }) {
                                                         </Form.Group>
 
                                                     </Col>
-                                                    <Col lg={6}>
+                                                    {/* <Col lg={6}>
                                                         <Form.Group >
                                                             <Row className="d-flex align-items-center">
                                                                 <Col lg={12}>
@@ -384,9 +394,8 @@ function Edit({ modelShow, editData, close }) {
                                                             </Row>
                                                         </Form.Group>
 
-                                                    </Col>
-                                                </Row>
-                                                <Row className="my-1">
+                                                    </Col> */}
+
                                                     <Col lg={6}>
                                                         <Form.Group >
                                                             <Row className="d-flex align-items-center">
@@ -416,6 +425,9 @@ function Edit({ modelShow, editData, close }) {
                                                             </Row>
                                                         </Form.Group>
                                                     </Col>
+                                                </Row>
+                                                <Row className="my-1">
+
                                                     <Col lg={6}>
                                                         <Form.Group >
                                                             <Row className="d-flex align-items-center">
@@ -434,7 +446,25 @@ function Edit({ modelShow, editData, close }) {
                                                             </Row>
                                                         </Form.Group>
                                                     </Col>
+                                                    {!data?.status && <Col lg={6}>
 
+                                                        <Form.Group >
+                                                            <Row className="d-flex align-items-center">
+                                                                <Col lg={12}>
+                                                                    <Form.Label className=''>
+                                                                        Left Date  :
+                                                                    </Form.Label>
+                                                                </Col>
+                                                                <Col lg={12}>
+                                                                    <Form.Control  {...register("leftDate", { required: false })} disabled={vicePresident}
+                                                                        type='date'
+                                                                    />
+                                                                    {errors?.leftDate && <span className="text-danger"> This field is required *</span>}
+                                                                </Col>
+                                                            </Row>
+
+                                                        </Form.Group>
+                                                    </Col>}
                                                 </Row>
                                                 <Row className='my-1'>
                                                     <Col lg={6}>
@@ -486,25 +516,7 @@ function Edit({ modelShow, editData, close }) {
 
                                                         </Form.Group>
                                                     </Col>
-                                                    {!data?.status && <Col lg={6}>
 
-                                                        <Form.Group >
-                                                            <Row className="d-flex align-items-center">
-                                                                <Col lg={12}>
-                                                                    <Form.Label className=''>
-                                                                        Left Date  :
-                                                                    </Form.Label>
-                                                                </Col>
-                                                                <Col lg={12}>
-                                                                    <Form.Control  {...register("leftDate", { required: false })} disabled={vicePresident}
-                                                                        type='date'
-                                                                    />
-                                                                    {errors?.leftDate && <span className="text-danger"> This field is required *</span>}
-                                                                </Col>
-                                                            </Row>
-
-                                                        </Form.Group>
-                                                    </Col>}
                                                 </Row>
                                                 <Row>
                                                     <Col lg={12} className="text-center  mt-4">

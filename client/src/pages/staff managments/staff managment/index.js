@@ -62,7 +62,7 @@ function UploadStaffManagmentPage() {
         setEditData(ele);
         setTimeout(() => {
             setIsModelSHow(true);
-            
+
         }, 1000);
     };
     const truncate = (str, length) => {
@@ -111,20 +111,19 @@ function UploadStaffManagmentPage() {
         dispatch(activeEmployeeListAction({ skip: skip, leftSkip: value, searchkey: "" }))
         // Navigate(`/product-wise-report/${value}`,{ state: { skip:value } });   
     }
-
+    const [search, setSearch] = useState('')
     useEffect(() => {
         dispatch(MonthList())
-
-        dispatch(getDesignationByPost());
+        dispatch(getDesignationByPost({ search: search }));
         dispatch(getZoneAction());
         dispatch(getState());
-        dispatch(reportingManagerByDesignationAction());
-        dispatch(getCity({ id: "", skip:"" }));
+        dispatch(reportingManagerByDesignationAction({ search: search }));
+        dispatch(getCity({ id: "", skip: "" }));
     }, []);
 
     useEffect(() => {
         dispatch(activeEmployeeListAction({ skip: skip, leftSkip: leftSkip, searchkey: "" }));
-      
+
     }, [showCreateModel, isModelShow]);
     useEffect(() => {
         setEmployeeData(store?.ActiveEmployeeListReducer?.activeEmployeeList?.response?.findActiveEmp);
@@ -133,6 +132,9 @@ function UploadStaffManagmentPage() {
     const INR_Format = (x) => {
         return new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(x)
     }
+    // useEffect(() => {
+    //     dispatch(getDesignationByPost())
+    // }, []);
     const handleSearchChange = (e) => {
 
         if (e.target.value.trim() !== "") {

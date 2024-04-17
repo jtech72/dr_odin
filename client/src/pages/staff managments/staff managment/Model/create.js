@@ -27,11 +27,7 @@ const Create = ({ modelShow, close }) => {
     const [isChecked, setIsChecked] = useState(false)
     const [loader, setloader] = useState(false)
     const [show, setShow] = useState(false)
-    console.log(show, "ppppppppppppppppppppppppp")
     const onSubmit = (data) => {
-        console.log(data, "shivam")
-
-
         let body = {
             empId: data?.employeeId,
             empName: data?.name,
@@ -80,7 +76,6 @@ const Create = ({ modelShow, close }) => {
             search: searchss
         }
         dispatch(reportingManagerByDesignationAction(daata))
-        console.log(e.target.value.split(',')[0], "alldesignation")
     }
 
     useEffect(() => {
@@ -93,7 +88,6 @@ const Create = ({ modelShow, close }) => {
             reset()
         }
         else if (successHandle?.status == 401) {
-            console.log("iamHEre")
             ToastHandle("error", store?.ActiveEmployeeCreateReducer?.message)
         }
         else if (successHandle?.status == 405) {
