@@ -22,7 +22,7 @@ export const GetDesignationReducer = (state = getDesignationState, action) => {
             };
         case getDesignationByPostTypes.GET_DESIGNATION_BY_POST_ERROR:
             return {
-                getDesignation: state.MonthList,
+                getDesignation: state.getDesignation,
                 loading: false,
             };
         default:
