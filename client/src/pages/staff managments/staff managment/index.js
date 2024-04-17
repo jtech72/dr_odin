@@ -377,7 +377,7 @@ function UploadStaffManagmentPage() {
                                                                                         <td width="100px" className="text-truncate ">
                                                                                             <p className="text-nowrap txt_showDots staffmanagment_width my-0 ">{ele?.doj} </p>                                                                                            </td>
                                                                                         <td width="100px" className="text-truncate ">
-                                                                                            <p className="text-nowrap txt_showDots staffmanagment_width my-0 ">{ele?.rm}</p>
+                                                                                            <p className="text-nowrap txt_showDots staffmanagment_width my-0 ">{ele?.rmId?.empName}</p>
                                                                                         </td>
                                                                                         <td width="100px" className="text-truncate ">
                                                                                             <p className="text-nowrap txt_showDots staffmanagment_width my-0 ">  ₹{INR_Format(ele?.mnthtarget)}</p>
@@ -606,7 +606,7 @@ function UploadStaffManagmentPage() {
                                                                                     <p className=" my-0 text-nowrap txt_showDots staffmanagment_width text-truncate">{ele?.doj}</p>
                                                                                 </td>
                                                                                 <td width="100px" className="  text-truncate">
-                                                                                    <p className=" my-0 text-nowrap txt_showDots staffmanagment_width text-truncate">{ele?.rm}</p>
+                                                                                    <p className=" my-0 text-nowrap txt_showDots staffmanagment_width text-truncate">{ele?.rmId?.empName}</p>
                                                                                 </td>
                                                                                 <td width="100px" className="  text-truncate">
                                                                                     <p className=" my-0 text-nowrap txt_showDots staffmanagment_width text-truncate">  ₹ {INR_Format(ele?.mnthtarget)}</p>
