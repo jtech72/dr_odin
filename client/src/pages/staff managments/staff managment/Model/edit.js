@@ -60,11 +60,11 @@ function Edit({ modelShow, editData, close }) {
         reset({
             employeeId: editData?.empId,
             name: editData?.empName,
-            designation: editData?.designation?._id,
+            designation: editData?.designation?._id ? editData?.designation?._id : '',
             dateofJoining: editData?.doj,
             zone: editData?.zoneId?._id,
-            reportingManager: editData?.rmId?.designation?._id,
-            reportingManagerName: editData?.rmId?._id,
+            // reportingManager: editData?.rmId?.designation?._id,
+            reportingManagerName: editData?.rmId?._id ? editData?.rmId?._id : '',
             status: editData?.status ? "active" : "left",
             statusValue: editData?.status ? "active" : "left",
             monthlyTarget: editData?.mnthtarget ? editData?.mnthtarget : "",
@@ -75,6 +75,7 @@ function Edit({ modelShow, editData, close }) {
         })
     }, [modelShow])
 
+    console.log(editData, "0000008888");
     useEffect(() => {
         if (editData?.designation?.designation == "VICE PRESIDENT") {
             setVicePresident(true)
@@ -91,8 +92,6 @@ function Edit({ modelShow, editData, close }) {
     }, [modelShow])
 
     const onSubmit = (data) => {
-
-
         let body = {
             employId: editData?._id,
             empId: data?.employeeId,
@@ -133,9 +132,11 @@ function Edit({ modelShow, editData, close }) {
         }
     }, [successHandle, errorHandle])
 
+    console.log(store, "999999");
     return (
         <>
             <Modal xs={9} size={"xl "} onHide={() => {
+                reset()
                 close(false)
             }} show={modelShow} dialogClassName="modal-width"
             >
@@ -314,6 +315,7 @@ function Edit({ modelShow, editData, close }) {
                                                                     <Form.Group className="" >
                                                                         <Form.Select {...register("designation", { required: true })}
                                                                         >{store?.GetDesignationReducer?.getDesignation?.response?.map((ele, ind) => {
+                                                                            <option>---select---</option>
                                                                             return (
 
                                                                                 <option key={ele?._id} value={ele?._id}>{ele?.designation} </option>
@@ -412,7 +414,7 @@ function Edit({ modelShow, editData, close }) {
                                                                             <option>---select---</option>
                                                                             {store?.ReportingManagerByDesignationReducer?.response?.length > 0 && store?.ReportingManagerByDesignationReducer?.response?.map((ele, ind) => {
                                                                                 return (
-                                                                                    <option value={ele?._id}> {ele?.empName}
+                                                                                    <option key={ele?._id} value={ele?._id}> {ele?.empName}
                                                                                         {/* {`(${ele?.designation?.designation})`} */}
                                                                                     </option>
                                                                                 )
