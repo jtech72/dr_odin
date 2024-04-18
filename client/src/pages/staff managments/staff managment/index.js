@@ -55,7 +55,7 @@ function UploadStaffManagmentPage() {
     };
     const handleEdit = (ele) => {
         let body = {
-            designationId: ele?.rmId?.designation?._id,
+            designationId: ele?.rmId?.designation?._id ? ele?.rmId?.designation?._id : '',
             zoneId: ele?.zoneId?._id
         }
         dispatch(reportingManagerByDesignationAction(body));
@@ -370,8 +370,7 @@ function UploadStaffManagmentPage() {
                                                                                         </td>
                                                                                         <td width="100px" className="text-truncate ">
                                                                                             <p className="text-nowrap txt_showDots staffmanagment_width my-0 ">    {
-                                                                                                ele?.designation
-                                                                                                    ?.designation
+                                                                                                ele?.designation?.designation
                                                                                             }</p>
                                                                                         </td>
                                                                                         <td width="100px" className="text-truncate ">
@@ -600,7 +599,7 @@ function UploadStaffManagmentPage() {
                                                                                     <p className=" my-0 text-nowrap txt_showDots staffmanagment_width text-truncate"> {ele?.city?.city}</p>
                                                                                 </td>
                                                                                 <td width="100px" className="  text-truncate">
-                                                                                    <p className=" my-0 text-nowrap txt_showDots staffmanagment_width text-truncate">   {ele?.designation?.designation}</p>
+                                                                                    <p className=" my-0 text-nowrap txt_showDots staffmanagment_width text-truncate">   {ele?.designation?.designation ? ele?.designation?.designation : 'N/A'}</p>
                                                                                 </td>
                                                                                 <td width="100px" className="  text-truncate">
                                                                                     <p className=" my-0 text-nowrap txt_showDots staffmanagment_width text-truncate">{ele?.doj}</p>

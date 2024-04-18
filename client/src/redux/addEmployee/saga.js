@@ -15,6 +15,10 @@ function* GetDesignationList({ payload }) {
                 type: getDesignationByPostTypes.GET_DESIGNATION_BY_POST_SUCCESS,
                 payload: { ...response.data },
             });
+            // yield put({
+            //     type: getDesignationByPostTypes.GET_DESIGNATION_BY_POST_RESET,
+            //     payload: {},
+            // });
         } else {
             yield put({
                 type: getDesignationByPostTypes.GET_DESIGNATION_BY_POST_ERROR,

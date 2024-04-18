@@ -20,6 +20,8 @@ export const GetDesignationReducer = (state = getDesignationState, action) => {
                 getDesignation: action?.payload,
                 loading: false,
             };
+        case getDesignationByPostTypes.GET_DESIGNATION_BY_POST_RESET:
+            return getDesignationState
         case getDesignationByPostTypes.GET_DESIGNATION_BY_POST_ERROR:
             return {
                 getDesignation: state.getDesignation,
